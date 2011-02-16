@@ -1,0 +1,21 @@
+# ignore any vim files:
+*.sw[a-z]
+.netrwhist
+
+#ignore the build directory:
+log/*
+
+# osx noise
+.DS_Store
+profile
+
+#zsh stuff
+oh-my-zsy/locals.zsh
+oh-my-zsh/log/.zsh_history
+oh-my-zsy/projects.zsh
+oh-my-zsy/custom/*.zsh
+oh-my-zsy/!custom/example.zsh
+
+#irssi
+irssi/away.log
+irssi/config.autosave
