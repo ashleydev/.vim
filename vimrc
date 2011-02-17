@@ -197,6 +197,7 @@ set tags=./tags,../tags,../../tags,../../../tags
 set wildignore=*.o,*.r,*.so,*.tar,*.tgz
 set wildmode=list:longest,list:full
 
+"-------------------------------------------------------------------------
 " taglist plugin:
 let Tlist_Show_One_File = 1
 let Tlist_Exit_OnlyWindow = 1
