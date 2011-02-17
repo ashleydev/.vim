@@ -607,11 +607,18 @@ function! conque_term#set_mappings(action) "{{{
         inoremap <silent> <buffer> <C-w>k <Esc><C-w>k
         inoremap <silent> <buffer> <C-w>h <Esc><C-w>h
         inoremap <silent> <buffer> <C-w>l <Esc><C-w>l
+        inoremap <silent> <buffer> <C-w><C-j> <Esc><C-w>j
+        inoremap <silent> <buffer> <C-w><C-k> <Esc><C-w>k
+        inoremap <silent> <buffer> <C-w><C-h> <Esc><C-w>h
+        inoremap <silent> <buffer> <C-w><C-l> <Esc><C-w>l
 
         inoremap <silent> <buffer> <C-w>n <Esc><C-w>n
         inoremap <silent> <buffer> <C-w>v <Esc><C-w>v
+        inoremap <silent> <buffer> <C-w><C-n> <Esc><C-w>n
+        inoremap <silent> <buffer> <C-w><C-v> <Esc><C-w>v
 
         inoremap <silent> <buffer> <C-w>x <Esc><C-w>x
+        inoremap <silent> <buffer> <C-w><C-x> <Esc><C-w>x
 
         inoremap <silent> <buffer> <C-w>_ <Esc><C-w>_
 
@@ -619,6 +626,7 @@ function! conque_term#set_mappings(action) "{{{
         inoremap <silent> <buffer> <C-k> <Esc><C-w>k<C-w>_
 
         inoremap <silent> <buffer> <C-w>w <Esc><C-w>w
+        inoremap <silent> <buffer> <C-w><C-w> <Esc><C-w>w
     endif
     " }}}
 
