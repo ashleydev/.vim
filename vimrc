@@ -334,6 +334,8 @@ let g:ConqueTerm_InsertOnEnter = 1
 
 let g:ConqueTerm_ReadUnfocused = 1
 
+let g:ConqueTerm_CloseOnEnd = 1
+
 " open a shell with ,s (open it vertically with ,v) (assuming <leader> is ,)
 nmap <Leader>s :call conque_term#open($SHELL, ['belowright split'])<CR>
 nmap <Leader>v :call conque_term#open($SHELL, ['belowright vsplit'])<CR>
