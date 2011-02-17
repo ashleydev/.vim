@@ -151,6 +151,25 @@ imap JJ <esc>:w<cr>
 vmap <C-L> :Align "="<CR>
 vmap <C-K> :Align ":"<CR>
 
+" open a quick fix window whenever there is something to put in it.
+:cwindow
+
+" put cscope results in a quick fix window.
+" set csqf=s-,c-,d-,i-,t-,e-
+
+match todo /@@@/
+
+" EMACS LIKE MAPPINGS FOR THE INSERT MODE
+"  scroll up
+"inoremap         
+"  scroll down
+"inoremap         
+"  END OF LINE
+"   note: this conflicts with copying the line above (normal vim  in insert mode)
+"inoremap         <End>
+"  START OF LINE
+"inoremap         <Home>
+
 set cindent
 "set    cinkeys=0{,0},:,!,o,O,e
 "set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,ps,t0,+s,(0,u0,)20,*30,g0
@@ -161,6 +180,12 @@ if version < 600
     set shortmess=astI
 endif
 set complete=.,w,b,u,t,i
+
+" the following lines will enable
+" item comments.  I'm not sure how though...
+set fo+=crq2b
+set com& " reset to default
+set com^=sr:*\ -,mb:*\ \ ,el:*/ com^=sr://\ -,mb://\ \ ,el:///
 
 set path=.,~/include,/usr/local/include,/usr/include,/usr/include/g++-3,/usr/X11R6/include/,/usr/lib/gcc-lib/i386-linux/2.95.2/include
 
@@ -292,33 +317,22 @@ function! CPrepare()
     " fold function bodies in c
     nmap <F4> ]]V][zf
 endfunction
+
 "-------------------------------------------------------------------------
+" Things for ConqueTerm
+"
+" The default here is <F9> but I don't need this option and already use <F9> for
+" something else:
+let g:ConqueTerm_SendVisKey = ''
+" Toggle terminal imput mode - to edit it as if it were a normal text buffer
+let g:ConqueTerm_ToggleKey = '<F6>'
+let g:ConqueTerm_TERM = 'xterm'
+" ,z for new zsh
+nmap <Leader>z <c-w>n<c-w>x<c-w>j:ConqueTerm zsh<CR>
+" ,b for new bash
+nmap <Leader>b <c-w>n<c-w>x<c-w>j:ConqueTerm bash<CR>
 
-" open a quick fix window whenever there is something to put in it.
-:cwindow
-
-" put cscope results in a quick fix window.
-" set csqf=s-,c-,d-,i-,t-,e-
-
-match todo /@@@/
-
-" EMACS LIKE MAPPINGS FOR THE INSERT MODE
-"  scroll up
-"inoremap         
-"  scroll down
-"inoremap         
-"  END OF LINE
-"   note: this conflicts with copying the line above (normal vim  in insert mode)
-"inoremap         <End>
-"  START OF LINE
-"inoremap         <Home>
-
-" Things for vimsh
-nmap <Leader>sh :source ~/.vim/vimsh_plugin/vimsh.vim<CR>
-let g:vimsh_pty_prompt_override = 0
-let g:vimsh_sh                  = '/bin/bash'
-let $VIMSH                      = 1
-
+"-------------------------------------------------------------------------
 " Terminal Color Settings
 highlight Comment       ctermfg=DarkCyan
 highlight LineNr        ctermfg=DarkRed
@@ -337,14 +351,7 @@ highlight LineNr        ctermfg=DarkRed
 
 set background=dark
 
-
-
-" the following lines will enable
-" item comments.  I'm not sure how though...
-set fo+=crq2b
-set com& " reset to default
-set com^=sr:*\ -,mb:*\ \ ,el:*/ com^=sr://\ -,mb://\ \ ,el:///
-
+"-------------------------------------------------------------------------
 "
 "   (vim)diff options...
 "
@@ -365,6 +372,7 @@ function! MyDiff()
 endfunction
 
 
+"-------------------------------------------------------------------------
 "
 "       Menus in console vim
 "
