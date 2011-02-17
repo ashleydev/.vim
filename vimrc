@@ -328,11 +328,14 @@ let g:ConqueTerm_SendVisKey = ''
 let g:ConqueTerm_ToggleKey = '<F6>'
 let g:ConqueTerm_TERM = 'xterm'
 " allow <c-w> to work in insert mode
-let g:ConqueTerm_CWInsert = 0
-" ,z for new zsh
-nmap <Leader>z <c-w>n<c-w>x<c-w>j:ConqueTerm zsh<CR>
-" ,b for new bash
-nmap <Leader>b <c-w>n<c-w>x<c-w>j:ConqueTerm bash<CR>
+let g:ConqueTerm_CWInsert = 1
+let g:ConqueTerm_InsertOnEnter = 1
+
+let g:ConqueTerm_ReadUnfocused = 1
+
+" open a shell with ,s (open it vertically with ,v) (assuming <leader> is ,)
+nmap <Leader>s :call conque_term#open($SHELL, ['belowright split'])<CR>
+nmap <Leader>v :call conque_term#open($SHELL, ['belowright vsplit'])<CR>
 
 "-------------------------------------------------------------------------
 " Terminal Color Settings
