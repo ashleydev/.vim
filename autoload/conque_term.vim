@@ -598,10 +598,26 @@ function! conque_term#set_mappings(action) "{{{
 
     " Map <C-w> in insert mode
     if exists('g:ConqueTerm_CWInsert') && g:ConqueTerm_CWInsert == 1
+        inoremap <silent> <buffer> <C-w>J <Esc><C-w>J
+        inoremap <silent> <buffer> <C-w>K <Esc><C-w>K
+        inoremap <silent> <buffer> <C-w>H <Esc><C-w>H
+        inoremap <silent> <buffer> <C-w>L <Esc><C-w>L
+
         inoremap <silent> <buffer> <C-w>j <Esc><C-w>j
         inoremap <silent> <buffer> <C-w>k <Esc><C-w>k
         inoremap <silent> <buffer> <C-w>h <Esc><C-w>h
         inoremap <silent> <buffer> <C-w>l <Esc><C-w>l
+
+        inoremap <silent> <buffer> <C-w>n <Esc><C-w>n
+        inoremap <silent> <buffer> <C-w>v <Esc><C-w>v
+
+        inoremap <silent> <buffer> <C-w>x <Esc><C-w>x
+
+        inoremap <silent> <buffer> <C-w>_ <Esc><C-w>_
+
+        inoremap <silent> <buffer> <C-j> <Esc><C-w>j<C-w>_
+        inoremap <silent> <buffer> <C-k> <Esc><C-w>k<C-w>_
+
         inoremap <silent> <buffer> <C-w>w <Esc><C-w>w
     endif
     " }}}
