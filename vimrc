@@ -55,7 +55,7 @@ let mapleader=","
 " strip all trailing whitespace 
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " clear current search
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><space> :nohlsearch<cr>
 " use tab keys to match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
