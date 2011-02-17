@@ -327,6 +327,8 @@ let g:ConqueTerm_SendVisKey = ''
 " Toggle terminal imput mode - to edit it as if it were a normal text buffer
 let g:ConqueTerm_ToggleKey = '<F6>'
 let g:ConqueTerm_TERM = 'xterm'
+" allow <c-w> to work in insert mode
+let g:ConqueTerm_CWInsert = 0
 " ,z for new zsh
 nmap <Leader>z <c-w>n<c-w>x<c-w>j:ConqueTerm zsh<CR>
 " ,b for new bash
