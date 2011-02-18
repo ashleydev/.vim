@@ -258,6 +258,8 @@ if has("autocmd")
   autocmd FileType php        call HtmlPrepare()
   autocmd FileType make       call MakePrepare()
   autocmd FileType objc       call ObjcPrepare()
+  autocmd FileType c          call CPrepare()
+  autocmd FileType cpp        call CPrepare()
 endif
 
 " Define functions
@@ -314,6 +316,10 @@ endfunction
 
 function! CPrepare()
     set tags=~/.tags/system.tags,./tags,../tags,../../tags,../../../tags
+
+    " go to the 'a'lternate file (i.e. the c file or the header file)
+    nmap <Leader>a :A<CR>
+
 
     " fold function bodies in c
     nmap <F4> ]]V][zf
