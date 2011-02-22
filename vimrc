@@ -139,11 +139,11 @@ iab allways always
 cmap Wq wq
 cmap WQ wq
 
-" Set quick escape from insert mode (plus auto write).
-imap jj <esc>:w<cr>
-imap Jj <esc>:w<cr>
-imap jJ <esc>:w<cr>
-imap JJ <esc>:w<cr>
+" Set quick escape from insert mode
+imap jj <esc>
+imap Jj <esc>
+imap jJ <esc>
+imap JJ <esc>
 
 " using the Align() function from plugin/Align_on_char.vim -- within highlighted
 " lines, Align() will allign all occurances of some "<string>" to a the same
@@ -339,7 +339,6 @@ let g:ConqueTerm_CWInsert = 1
 let g:ConqueTerm_InsertOnEnter = 1
 
 let g:ConqueTerm_ReadUnfocused = 1
-
 let g:ConqueTerm_CloseOnEnd = 1
 
 " open a shell with ,s (open it vertically with ,v) (assuming <leader> is ,)

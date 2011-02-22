@@ -56,6 +56,9 @@ if has("cscope")
     "   's'   symbol: find all references to the token under cursor
     "   'g'   global: find global definition(s) of the token under cursor
     "   'c'   calls:  find all calls to the function name under cursor
+    
+    
+    
     "   't'   text:   find all instances of the text under cursor
     "   'e'   egrep:  egrep search for the word under cursor
     "   'f'   file:   open the filename under cursor
