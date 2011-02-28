@@ -596,12 +596,6 @@ function! conque_term#set_mappings(action) "{{{
         endif
     endif
 
-    " ashleydev (02/24/11): remove my mapping from jj to <Esc> in my vimrc when using conque term
-    if l:action == 'start'
-        iunmap jj
-        iunmap jJ
-    endif
-
     " Map <C-w> in insert mode
     if exists('g:ConqueTerm_CWInsert') && g:ConqueTerm_CWInsert == 1
         inoremap <silent> <buffer> <C-w>J <Esc><C-w>J
@@ -921,6 +915,9 @@ function! conque_term#on_focus(...) " {{{
         startinsert!
     endif
 
+    " ashleydev (02/24/11): remove my mapping from jj to <Esc> in my vimrc when using conque term
+    iunmap jj
+    iunmap jJ
 endfunction " }}}
 
 " gets called when user exits conque buffer.
@@ -945,6 +942,10 @@ function! conque_term#on_blur() " {{{
     else
         set updatetime=2000
     endif
+
+    " ashleydev (02/24/11): remove my mapping from jj to <Esc> in my vimrc when using conque term
+    imap jj <Esc>
+    imap jJ <Esc>
 endfunction " }}}
 
 " bell event (^G)
