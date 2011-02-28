@@ -201,7 +201,7 @@ set wildmode=list:longest,list:full
 " taglist plugin:
 let Tlist_Show_One_File = 1
 let Tlist_Exit_OnlyWindow = 1
-map T :TlistToggle<CR>
+nmap T :TlistToggle<CR>
 
 "-------------------------------------------------------------------------
 " Only do this part when compiled with support for autocommands.
@@ -316,6 +316,7 @@ endfunction
 
 function! CPrepare()
     set tags=~/.tags/system.tags,./tags,../tags,../../tags,../../../tags
+    call SlashComment()
 
     " go to the 'a'lternate file (i.e. the c file or the header file)
     nmap <Leader>a :A<CR>
