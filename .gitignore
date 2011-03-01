@@ -5,3 +5,6 @@
 # osx noise
 .DS_Store
 profile
+
+# temp dir for persistant vim undo support
+undodir/*

@@ -197,6 +197,12 @@ set tags=./tags,../tags,../../tags,../../../tags
 set wildignore=*.o,*.r,*.so,*.tar,*.tgz
 set wildmode=list:longest,list:full
 
+" persistant undo support:
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+
 "-------------------------------------------------------------------------
 " taglist plugin:
 let Tlist_Show_One_File = 1
