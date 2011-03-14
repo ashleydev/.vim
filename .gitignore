@@ -11,3 +11,6 @@ spell/
 
 # temp dir for persistant vim undo support:
 tmp/*
+
+# ignore installed modules
+vam/*
