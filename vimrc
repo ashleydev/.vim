@@ -36,8 +36,8 @@ call scriptmanager#Activate([
 \    'Command-T',
 \    'The_NERD_Commenter',
 \    'YankRing',
-\    'Gundo',
 \ ])
+" \    'Gundo',
 
 if !exists("*scriptmanager#Activate")
     echo "ERROR: Could not find your plugins\n" .
@@ -523,10 +523,8 @@ function! CPrepare()
     call SlashComment()
     setlocal spell
 
-    setlocal colorcolumn=+1
-    let s:color_column_old=
-
-"     call TlistToggle()
+"     setlocal colorcolumn=+1
+"     let s:color_column_old=''
 
     " go to the 'a'lternate file (i.e. the c file or the header file)
     nmap <Leader>a :A<cr>
