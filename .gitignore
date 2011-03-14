@@ -6,5 +6,8 @@
 .DS_Store
 profile
 
-# temp dir for persistant vim undo support
-undodir/*
+# changes to the dictionary:
+spell/
+
+# temp dir for persistant vim undo support:
+tmp/*

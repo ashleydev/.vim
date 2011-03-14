@@ -1,1 +1,16 @@
-hello
+DESCRIPTION
+
+    My vimrc configuration.  It uses a plugin manager that will ask to install
+    plugins the first time vim is started with this vimrc.  You can change the
+    list of (to be) installed plugins at the top of the vimrc.
+
+INSTALL:
+
+    cd ~/
+    git clone git://github.com/ashleydev/.vim.git
+    cd .vim/
+    make  # creates symlink: ~/.vimrc -> ~/.vim/vimrc
+
+REQUIREMENTS
+
+    This vimrc requres >= vim 7.3 for full features.
