@@ -1,23 +1,27 @@
 "-----------------------------------------------------------------------------
-" [Plugin]: Install plugins
+" [Plugin]: vim-addon-manager (vam)
 "-----------------------------------------------------------------------------
-
-" I'm using vim-addon-manager, this will automatically ask you to install all of
-" the array-list of bundles named below.
 "
-" Bootstrap it by installing all the files of vim-addon-manager at
-" ~/.vim/vam/vim-addon-manager/*
+" INSTALLING PLUGINS:
 "
-" I'm using vim-addon-manager instead of pathogen as it's more featureful and
-" requres much less effort when adding new plugins.
-" For more on pathogen see:
-" http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
+"   I'm using vim-addon-manager, this will automatically ask you to install all
+"   of the array-list of bundles named below.
 "
-" Adding new plugins:
+"   Adding new plugins:
+"   I just look in
+"   ~/.vim/vam/vim-addon-manager-known-repositories/plugin/vim-addon-manager-known-repositories.vim
+"   for the name I want and add it to the list below.
 "
-" I just look in
-" ~/.vim/vam/vim-addon-manager-known-repositories/plugin/vim-addon-manager-known-repositories.vim
-" for the name I want and add it to the list below.
+" PREREQUISITES:
+"
+"   Bootstrap it by installing all the files of vim-addon-manager at
+"   ~/.vim/vam/vim-addon-manager/*
+"
+" (I'm using vim-addon-manager instead of pathogen as it's more feature full and
+"  requires much less effort when adding new plugins.  For more on pathogen see:
+"  http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen )
+"
+"
 
 set runtimepath+=~/.vim/vam/vim-addon-manager
 call scriptmanager#Activate([
@@ -68,32 +72,31 @@ highlight LineNr        ctermfg=DarkRed
 
 set t_Co=16
 
-" open a quick fix window whenever there is something to put in it.
-:cwindow
+:cwindow                        " Open quick fix window when there's needed
 set ruler                       " Show location of cursor in status bar
 set statusline=%t%y%r%m%=line\ %l\ of\ %L,\ col\ %c,\ %p%%
-set showcmd                     " Show (partial) command in the last line of the screen.
+set showcmd                     " Show multi-char cmds as you type; bottom right
 set nolist
 set listchars=tab:»·,trail:·
 " set listchars=tab:>-,trail:+
-set background=dark             " set to 'light' if you use a light background
-set scrolloff=2                 " cursors stays 2 lines below/above top/bottom
+set background=dark             " Set to 'light' if you use a light background
+set scrolloff=2                 " Cursors stays 2 lines below/above top/bottom
 set noerrorbells
-set visualbell                  " flash the screen
-set laststatus=2                " always show status line at the bottem of the window.
+set visualbell                  " Flash the screen
+set laststatus=2                " Show status line at the bottom of the window.
 set title
-set linebreak                   " affects how wrapped text is displaed
+set linebreak                   " Affects how wrapped text is displayed
 set foldmethod=manual
 let loaded_matchparen = 1       " Don't load the match paren plugin, I don't like it.
 set wrap
-set number                      " show line numbers (toggled with ,sn)
+set number                      " Show line numbers (toggled with ,sn)
 
-" make <c-g> more verbose
+" Make <c-g> more verbose
 nnoremap <c-g> 2<c-g>
 
 match todo /@@@/
 
-" show trailing whitespace
+" Show trailing whitespace
 " http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -109,8 +112,6 @@ set autowrite                   " Write often when jumping around
 set mouse=a                     " Turn mouse support on
 set esckeys                     " Function keys that start with an <Esc> are
                                 "  recognized in Insert mode.
-set updatetime=400              " This makes Tlist update which function you are
-                                "  in much faster.
 set backspace=indent,eol,start  " Allows <BS> and ilk to wrap across lines
 set whichwrap=<,>,h,l,[,]       " Allow these movement keys to move to next line
 set switchbuf=useopen
@@ -143,7 +144,7 @@ set smarttab                    " make <tab> and <BS> deal with indentation prop
 
 set textwidth=80                " where to auto-wrap long lines
 
-set formatoptions=tcrqn         " autoformat options for formatting comments
+set formatoptions=tcrqn         " auto-format options for formatting comments
 set formatlistpat="^\s*\(\d\+[\]:.)}\t -]|\*\|-)\s*"
 
 set comments=b:#,:%,:\",://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
@@ -195,7 +196,7 @@ inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<cr>
 vmap p d"0P
 
 "-----------------------------------------------------------------------------
-" persistant undo support:
+" Persistent undo support:
 "-----------------------------------------------------------------------------
 
 silent execute '!mkdir -p ~/.vim/tmp/undodir'
@@ -289,19 +290,6 @@ cmap WQ wq
 
 let mapleader=","
 
-" toggle wrap:
-nmap <C-H> :set wrap!<bar>set wrap?<cr>
-
-nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
-
-" toggle ('s'witch) stuff:
-nmap <Leader>sn :set number!<bar>set number?<cr>
-nmap <Leader>sz :set foldenable!<cr>
-
-" toggle paste mode, so you can cmd-v from your desktop paste-buffer and not
-" screw up all the formatting:
-nmap <Leader>sp :set paste!<bar>set paste?<cr>
-
 nmap <Leader>ss :call CycleTerminalPaletteSize()<cr>
 function! CycleTerminalPaletteSize()
     " choose new palette size
@@ -319,6 +307,7 @@ function! CycleTerminalPaletteSize()
     echo &t_Co
 endfunction
 
+" For when you want to make sure you're not over 80 columns of text.
 " toggle colored right border at textwidth +1
 let s:color_column_old='+1'
 function! s:ToggleColorColumn()
@@ -346,6 +335,19 @@ function! s:ToggleDiff()
 endfunction
 nmap <Leader>sd :call <SID>ToggleDiff()<cr>
 
+nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
+
+" toggle ('s'witch) stuff:
+nmap <Leader>sn :set number!<bar>set number?<cr>
+nmap <Leader>sz :set foldenable!<cr>
+
+" toggle paste mode, so you can cmd-v from your desktop paste-buffer and not
+" screw up all the formatting:
+nmap <Leader>sp :set paste!<bar>set paste?<cr>
+
+" toggle wrap:
+nmap <C-H> :set wrap!<bar>set wrap?<cr>
+
 " decrease keystrokes for these:
 nmap <Leader>q :q<cr>
 nmap <Leader>Q :qa<cr>
@@ -365,8 +367,8 @@ vnoremap # <esc>:let save_reg=@"<cr>gvy:let @/=@"<cr>:let @"=save_reg<cr>?<cr>
 " make <c-l> (redraw screen) also turn off search highlighting temporarily
 noremap <c-l> :nohlsearch<cr><c-l>
 
-" using the Align() function from plugin/Align_on_char.vim -- within highlighted
-" lines, Align() will allign all occurances of some "<string>" to a the same
+" Using the Align() function from plugin/Align_on_char.vim -- within highlighted
+" lines, Align() will align all occurrences of some "<string>" to the same
 " column inserting spaces where needed to create the alignment.
 vmap <c-l> :Align "="<cr>
 vmap <c-k> :Align ":"<cr>
@@ -391,6 +393,7 @@ nmap <Leader>l <C-W>l500<C-W>>
 
 " create a new tab
 nmap <Leader>T :tabnew<cr>
+
 " move to tab right/left
 nmap <Leader>k gt
 nmap <Leader>j gT
@@ -514,6 +517,7 @@ endfunction
 
 function! PerlPrepare()
     call PoundComment()
+
     "get perldocs by pressing 'K'
     noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
 endfunction
@@ -538,29 +542,32 @@ endfunction
 " [Plugin]: Conque_Shell
 "-----------------------------------------------------------------------------
 
+" horizontal shell window:
+nmap <Leader>sh :call conque_term#open($SHELL, ['belowright split'])<cr>
+" vertical shell window:
+nmap <Leader>sv :call conque_term#open($SHELL, ['belowright vsplit'])<cr>
+
 " The default here is <F9> but I don't need this option and already use <F9> for
 " something else:
 let g:ConqueTerm_SendVisKey = ''
-" Toggle terminal imput mode - to edit it as if it were a normal text buffer
-let g:ConqueTerm_ToggleKey = '<F6>'
+let g:ConqueTerm_ToggleKey = '<F6>' " Toggle terminal input mode - to edit it as
+                                    " if it were a normal text buffer
 let g:ConqueTerm_TERM = 'xterm'
-" allow <c-w> to work in insert mode
-let g:ConqueTerm_CWInsert = 1
+let g:ConqueTerm_CWInsert = 1       " allow <c-w> to work in insert mode
 let g:ConqueTerm_InsertOnEnter = 1
 
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_CloseOnEnd = 1
 
-" open a shell with ,sh (open it vertically with ,sv) (assuming <Leader> is ,)
-nmap <Leader>sh :call conque_term#open($SHELL, ['belowright split'])<cr>
-nmap <Leader>sv :call conque_term#open($SHELL, ['belowright vsplit'])<cr>
-" TODO get past version # svn:449 and get the hooks so I can remove 'jj' when in
-" the conque shell, and also remove the showing of trailing whitespace
+" TODO: get past version svn#449 (>v2.0) and get the hooks so I can remove 'jj'
+" when in the conque shell, and also remove the showing of trailing whitespace.
 
 "-----------------------------------------------------------------------------
 " [plugin]: taglist
 "-----------------------------------------------------------------------------
 
+set updatetime=400              " This makes Tlist update which function you are
+                                "  in much faster.
 let Tlist_Show_One_File = 1
 let Tlist_Exit_OnlyWindow = 1
 nmap T :TlistToggle<cr>
