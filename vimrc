@@ -1,26 +1,34 @@
 "-----------------------------------------------------------------------------
-" [Plugin]: vim-addon-manager (vam)
+" PLUGIN: vim-addon-manager (vam)
 "-----------------------------------------------------------------------------
 "
-" INSTALLING PLUGINS:
-"
-"   I'm using vim-addon-manager, this will automatically ask you to install all
-"   of the array-list of bundles named below.
-"
-"   Adding new plugins:
-"   I just look in
-"   ~/.vim/vam/vim-addon-manager-known-repositories/plugin/vim-addon-manager-known-repositories.vim
-"   for the name I want and add it to the list below.
+"   I'm using vim-addon-manager. 
 "
 " PREREQUISITES:
 "
 "   Bootstrap it by installing all the files of vim-addon-manager at
 "   ~/.vim/vam/vim-addon-manager/*
 "
-" (I'm using vim-addon-manager instead of pathogen as it's more feature full and
-"  requires much less effort when adding new plugins.  For more on pathogen see:
-"  http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen )
+"   It should already be done for you if you're getting this via git.
 "
+" INSTALLING PLUGINS:
+"
+"   Every time vim is started, it will look in the 'scriptmanager#Activate' list
+"   below and prompt you to install any plugins you don't already have installed.
+"   (the prompt formatting is yucky, I don't know why)...
+"
+"   Adding new plugins:
+"   I just look in
+"   ~/.vim/vam/vim-addon-manager-known-repositories/plugin/vim-addon-manager-known-repositories.vim
+"   for the name I want and add it to the list below.
+"
+" NOTE:
+"
+"   I'm using vim-addon-manager instead of pathogen as it's more feature full,
+"   requires less effort when adding new plugins, makes it easier to update my
+"   plugins and doesn't require me to add all the plugins I want to my .vim git
+"   repository.  But, for those interested in pathogen see:
+"   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
 
 set runtimepath+=~/.vim/vam/vim-addon-manager
@@ -539,7 +547,7 @@ function! CPrepare()
 endfunction
 
 "-----------------------------------------------------------------------------
-" [Plugin]: Conque_Shell
+" PLUGIN: Conque_Shell
 "-----------------------------------------------------------------------------
 
 " horizontal shell window:
@@ -563,7 +571,7 @@ let g:ConqueTerm_CloseOnEnd = 1
 " when in the conque shell, and also remove the showing of trailing whitespace.
 
 "-----------------------------------------------------------------------------
-" [plugin]: taglist
+" PLUGIN: taglist
 "-----------------------------------------------------------------------------
 
 set updatetime=400              " This makes Tlist update which function you are
@@ -573,7 +581,7 @@ let Tlist_Exit_OnlyWindow = 1
 nmap T :TlistToggle<cr>
 
 "-----------------------------------------------------------------------------
-" [plugin]: The_NERD_Commenter
+" PLUGIN: The_NERD_Commenter
 "-----------------------------------------------------------------------------
 
 " toggle comments
@@ -581,13 +589,13 @@ nnoremap <silent> <Leader><space> :call NERDComment(0, "toggle")<cr>
 vnoremap <silent> <Leader><space> <ESC>:call NERDComment(1, "toggle")<cr>
 
 "-----------------------------------------------------------------------------
-" [plugin]: Gundo
+" PLUGIN: Gundo
 "-----------------------------------------------------------------------------
 
 nnoremap <Leader>u :GundoToggle<cr>
 
 "-----------------------------------------------------------------------------
-" [plugin]: YankRing
+" PLUGIN: YankRing
 "-----------------------------------------------------------------------------
 
 let g:yankring_replace_n_pkey = '<C-P>'
