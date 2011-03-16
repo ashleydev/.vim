@@ -152,11 +152,11 @@ set smarttab                    " make <tab> and <BS> deal with indentation prop
 
 set textwidth=80                " where to auto-wrap long lines
 
-set formatoptions=tcrqn         " auto-format options for formatting comments
+set formatoptions=crqt          " auto-format options for formatting comments
 set formatlistpat="^\s*\(\d\+[\]:.)}\t -]|\*\|-)\s*"
 
 set comments=b:#,:%,:\",://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
-" set comments=b:#,:%,://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
+"set comments=b:#,:%,://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
 
 set cindent
 "set    cinkeys=0{,0},:,!,o,O,e
