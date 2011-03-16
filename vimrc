@@ -578,6 +578,7 @@ set updatetime=400              " This makes Tlist update which function you are
                                 "  in much faster.
 let Tlist_Show_One_File = 1
 let Tlist_Exit_OnlyWindow = 1
+let Tlist_WinWidth = 35
 nmap T :TlistToggle<cr>
 
 "-----------------------------------------------------------------------------
