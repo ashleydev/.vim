@@ -416,7 +416,7 @@ map <C-LeftMouse> <LeftMouse><C-Space>g
 map g<LeftMouse> <LeftMouse><C-Space>g
 
 " strip trailing whitespace
-nmap <Leader><space> :%s/\s\+$//<cr>:let @/=''<cr>
+nmap <Leader>$ :%s/\s\+$//<cr>:let @/=''<cr>
 
 " where to search for files when pressing gf
 set path=.,
