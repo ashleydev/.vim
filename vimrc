@@ -2,7 +2,7 @@
 " PLUGIN: vim-addon-manager (vam)
 "-----------------------------------------------------------------------------
 "
-"   I'm using vim-addon-manager. 
+"   I'm using vim-addon-manager.
 "
 " PREREQUISITES:
 "
@@ -30,7 +30,6 @@
 "   repository.  But, for those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
-
 set runtimepath+=~/.vim/vam/vim-addon-manager
 call scriptmanager#Activate([
 \    'snipMate',
@@ -66,19 +65,17 @@ highlight Comment       ctermfg=DarkCyan
 highlight LineNr        ctermfg=DarkRed
 
 " Terminal Color Settings
-""Try doing some color
-"  "Try using 88 colors
-"   if has("terminfo")
-"      set t_Co=16
-"      set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-"      set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
-"    else
-"      set t_Co=16
-"       set t_Sf=[3%dm
-"      set t_Sb=[4%dm
-"    endif
-
 set t_Co=16
+" Try doing some color
+"if has("terminfo")
+"    set t_Co=16
+"    set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+"    set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+"else
+"    set t_Co=16
+"    set t_Sf=[3%dm
+"    set t_Sb=[4%dm
+"endif
 
 :cwindow                        " Open quick fix window when there's needed
 set ruler                       " Show location of cursor in status bar
