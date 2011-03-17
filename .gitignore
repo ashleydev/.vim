@@ -1,6 +1,7 @@
 # ignore any vim files:
 *.sw[a-z]
 .netrwhist
+.netrwbook
 
 # osx noise
 .DS_Store

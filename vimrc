@@ -544,6 +544,15 @@ function! CPrepare()
 endfunction
 
 "-----------------------------------------------------------------------------
+" PLUGIN: netrw (dir browser):
+"-----------------------------------------------------------------------------
+
+let g:netrw_liststyle = 3            " Set tree style listing by default
+let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$' " don't separate .c from .h
+let g:netrw_preview   = 1            " preview window 'p' defaults to vertical
+let g:netrw_winsize   = 30           " on preview keep width marginalized to 30
+
+"-----------------------------------------------------------------------------
 " PLUGIN: Conque_Shell
 "-----------------------------------------------------------------------------
 
