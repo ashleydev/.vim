@@ -81,9 +81,12 @@ set t_Co=16
 set ruler                       " Show location of cursor in status bar
 set statusline=%t%y%r%m%=line\ %l\ of\ %L,\ col\ %c,\ %p%%
 set showcmd                     " Show multi-char cmds as you type; bottom right
-set nolist
-set listchars=tab:»·,trail:·
+set list                        " Toggle this with cmd defined below
+set listchars=tab:»·
+"set listchars=tab:>-
+" set listchars=tab:»·,trail:·
 " set listchars=tab:>-,trail:+
+
 set background=dark             " Set to 'light' if you use a light background
 set scrolloff=2                 " Cursors stays 2 lines below/above top/bottom
 set noerrorbells
@@ -105,6 +108,7 @@ match todo /@@@/
 " http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+" see below for shortcut to toggle this.
 highlight EOLWS ctermbg=red guibg=red
 
 "-----------------------------------------------------------------------------
@@ -325,7 +329,7 @@ function! s:ToggleColorColumn()
         let s:color_column_old=''
     endif
 endfunction
-:hi ColorColumn ctermbg=darkgrey guibg=darkgrey
+highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 nnoremap <Leader>s8 :call <SID>ToggleColorColumn()<cr>
 
 " Toggle vimdiff mode
@@ -340,6 +344,23 @@ function! s:ToggleDiff()
 endfunction
 nmap <Leader>sd :call <SID>ToggleDiff()<cr>
 
+let s:highlightTrailingWhiteSpace=1
+function! s:ToggleHiTrailingWS()
+    if s:highlightTrailingWhiteSpace == 1
+        let s:highlightTrailingWhiteSpace = 0
+        highlight clear EOLWS
+        echo ':highlight clear EOLWS'
+    else
+        let s:highlightTrailingWhiteSpace = 1
+        highlight EOLWS ctermbg=red guibg=red
+        echo ':highlight EOLWS ctermbg=red guibg=red'
+    endif
+endfunction
+nmap <Leader>sw :call <SID>ToggleHiTrailingWS()<cr>
+" strip trailing whitespace
+nmap <Leader>sW :%s/\s\+$//<cr>:let @/=''<cr>
+
+" spell check
 nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
@@ -353,11 +374,13 @@ nmap <Leader>sp :set paste!<bar>set paste?<cr>
 " toggle wrap:
 nmap <C-H> :set wrap!<bar>set wrap?<cr>
 
+nmap <Leader>sl :set list!<bar>set list?<cr>
+
 " decrease keystrokes for these:
 nmap <Leader>q :q<cr>
 nmap <Leader>Q :qa<cr>
 nmap <Leader>w :w<cr>
-nmap <Leader>W :wq<cr>
+nmap <Leader>W :wa<cr>
 imap jj <esc>
 imap jJ <esc>
 imap Jj <esc>
@@ -411,9 +434,6 @@ map  <F8>  :bn<cr>
 "make tag goto open in a different window when clicking on it with the mouse
 map <C-LeftMouse> <LeftMouse><C-Space>g
 map g<LeftMouse> <LeftMouse><C-Space>g
-
-" strip trailing whitespace
-nmap <Leader>$ :%s/\s\+$//<cr>:let @/=''<cr>
 
 " where to search for files when pressing gf
 set path=.,
@@ -566,15 +586,59 @@ nmap <Leader>sv :call conque_term#open($SHELL, ['belowright vsplit'])<cr>
 let g:ConqueTerm_SendVisKey = ''
 let g:ConqueTerm_ToggleKey = '<F6>' " Toggle terminal input mode - to edit it as
                                     " if it were a normal text buffer
-let g:ConqueTerm_TERM = 'xterm'
+" let g:ConqueTerm_TERM = 'xterm'
 let g:ConqueTerm_CWInsert = 1       " allow <c-w> to work in insert mode
 let g:ConqueTerm_InsertOnEnter = 1
 
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_CloseOnEnd = 1
 
-" TODO: get past version svn#449 (>v2.0) and get the hooks so I can remove 'jj'
-" when in the conque shell, and also remove the showing of trailing whitespace.
+function! MyConqueKeyMappings(term)
+    inoremap <silent> <buffer> <C-w>J <Esc><C-w>J
+    inoremap <silent> <buffer> <C-w>K <Esc><C-w>K
+    inoremap <silent> <buffer> <C-w>H <Esc><C-w>H
+    inoremap <silent> <buffer> <C-w>L <Esc><C-w>L
+
+    inoremap <silent> <buffer> <C-w><C-j> <Esc><C-w>j
+    inoremap <silent> <buffer> <C-w><C-k> <Esc><C-w>k
+    inoremap <silent> <buffer> <C-w><C-h> <Esc><C-w>h
+    inoremap <silent> <buffer> <C-w><C-l> <Esc><C-w>l
+
+    inoremap <silent> <buffer> <C-w>n <Esc><C-w>n
+    inoremap <silent> <buffer> <C-w>v <Esc><C-w>v
+    inoremap <silent> <buffer> <C-w><C-n> <Esc><C-w>n
+    inoremap <silent> <buffer> <C-w><C-v> <Esc><C-w>v
+
+    inoremap <silent> <buffer> <C-w>x <Esc><C-w>x
+    inoremap <silent> <buffer> <C-w><C-x> <Esc><C-w>x
+
+    inoremap <silent> <buffer> <C-w>c <Esc><C-w>c
+    inoremap <silent> <buffer> <C-w><C-c> <Esc><C-w>c
+
+    inoremap <silent> <buffer> <C-w>w <Esc><C-w>w
+    inoremap <silent> <buffer> <C-w><C-w> <Esc><C-w>w
+
+    inoremap <silent> <buffer> <C-w>_ <Esc><C-w>_
+    " these are broke for now Conque needs to be fixed for them to work:
+    inoremap <silent> <buffer> <C-j> <Esc><C-w>j<C-w>_
+    inoremap <silent> <buffer> <C-k> <Esc><C-w>k<C-w>_
+endfunction
+call conque_term#register_function('after_keymap', 'MyConqueKeyMappings')
+
+function! MyConqueBufferEnter(term)
+    " Since I use my zsh in vi mode and have mapped jj as <esc> for shell cmd
+    " line editing, I don't want to have vim keep jj from going through to my
+    " shell, that means I need to use <esc> to get out of edit mode in Conque
+    iunmap jj
+    iunmap jJ
+endfunction
+call conque_term#register_function('buffer_enter', 'MyConqueBufferEnter')
+
+function! MyConqueBufferLeave(term)
+    imap jj <Esc>
+    imap jJ <Esc>
+endfunction
+call conque_term#register_function('buffer_leave', 'MyConqueBufferLeave')
 
 "-----------------------------------------------------------------------------
 " PLUGIN: taglist
@@ -613,3 +677,10 @@ nmap <Leader>p :YRShow<cr>
 function! YRRunAfterMaps()
     nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
 endfunction
+
+"-----------------------------------------------------------------------------
+" PLUGIN: Indent_Guides
+"-----------------------------------------------------------------------------
+
+nmap <Leader>ig :IndentGuidesToggle<CR>
+
