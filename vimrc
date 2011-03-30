@@ -82,8 +82,8 @@ set ruler                       " Show location of cursor in status bar
 set statusline=%t%y%r%m%=line\ %l\ of\ %L,\ col\ %c,\ %p%%
 set showcmd                     " Show multi-char cmds as you type; bottom right
 set list                        " Toggle this with cmd defined below
-set listchars=tab:»·
-"set listchars=tab:>-
+" set listchars=tab:»·
+set listchars=tab:>-
 " set listchars=tab:»·,trail:·
 " set listchars=tab:>-,trail:+
 
@@ -402,12 +402,16 @@ vmap <c-l> :Align "="<cr>
 vmap <c-k> :Align ":"<cr>
 
 " use tab keys to match bracket pairs
-nmap <tab> %
-vmap <tab> %
+" my snipMate breaks this in ./vam/snipMate/after/plugin/snipMate.vim
+" so i'm using prepending the `autocmd VimEnter * :`
+autocmd VimEnter * :nmap <tab> %
+autocmd VimEnter * :xmap <tab> %
 
 " treat wrapped lines like real lines
 nmap <Up> gk
 nmap <Down> gj
+nmap k gk
+nmap j gj
 
 " These commands deal with changing and minimizing windows up and down.
 set winminheight=0
@@ -669,18 +673,18 @@ nnoremap <Leader>u :GundoToggle<cr>
 " PLUGIN: YankRing
 "-----------------------------------------------------------------------------
 
-let g:yankring_replace_n_pkey = '<C-P>'
-let g:yankring_replace_n_nkey = '<C-N>'
+let g:yankring_replace_n_pkey = '<C-p>'
+let g:yankring_replace_n_nkey = '<C-n>'
 nmap <Leader>p :YRShow<cr>
 
 " makes `map Y y$` actually work
 function! YRRunAfterMaps()
-    nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+    nnoremap Y   :<C-u>YRYankCount 'y$'<cr>
 endfunction
 
 "-----------------------------------------------------------------------------
 " PLUGIN: Indent_Guides
 "-----------------------------------------------------------------------------
 
-nmap <Leader>ig :IndentGuidesToggle<CR>
+nmap <Leader>ig :IndentGuidesToggle<cr>
 
