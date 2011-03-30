@@ -24,6 +24,8 @@
 "
 " NOTE:
 "
+"   Re: pathogen
+"
 "   I'm using vim-addon-manager instead of pathogen for modules I havn't modifed
 "   and don't want to check into my repository. vim-addon-manager is more
 "   feature full, requires less effort when adding new plugins, makes it easier
@@ -31,10 +33,9 @@
 "   I want to my .vim/ git repository.
 "
 "   I am however using pathogen for my own modules.  These are things that are
-"   custome to me and haven't been released to the wider vim script world (i.e.
+"   custom to me and haven't been released to the wider vim script world (i.e.
 "   aren't availble under vam).  These are under ~/.vim/bundle/.
 "
-"   
 "   For those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
