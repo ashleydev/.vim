@@ -24,14 +24,23 @@
 "
 " NOTE:
 "
-"   I'm using vim-addon-manager instead of pathogen as it's more feature full,
-"   requires less effort when adding new plugins, makes it easier to update my
-"   plugins and doesn't require me to add all the plugins I want to my .vim git
-"   repository.  But, for those interested in pathogen see:
+"   I'm using vim-addon-manager instead of pathogen for modules I havn't modifed
+"   and don't want to check into my repository. vim-addon-manager is more
+"   feature full, requires less effort when adding new plugins, makes it easier
+"   to update my external plugins and doesn't require me to add all the plugins
+"   I want to my .vim/ git repository.
+"
+"   I am however using pathogen for my own modules.  These are things that are
+"   custome to me and haven't been released to the wider vim script world (i.e.
+"   aren't availble under vam).  These are under ~/.vim/bundle/.
+"
+"   
+"   For those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
 set runtimepath+=~/.vim/vam/vim-addon-manager
 call scriptmanager#Activate([
+\    'pathogen.zip',
 \    'snipMate',
 \    'Indent_Guides',
 \    'Conque_Shell',
@@ -54,6 +63,9 @@ if !exists("*scriptmanager#Activate")
     echo "ERROR: Could not find your plugins\n" .
     \    "\tPlease install vim-addon-manager files at ~/.vim/vam/vim-addon-manager/*\n"
 endif
+
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 "-----------------------------------------------------------------------------
 " appearance
