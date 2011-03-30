@@ -10,6 +10,8 @@ INSTALL:
     git clone git://github.com/ashleydev/.vim.git
     cd .vim/
     make  # creates symlink: ~/.vimrc -> ~/.vim/vimrc
+          #   and
+          # creates symlink: ~/.gvimrc -> ~/.vim/gvimrc
 
 REQUIREMENTS
 
