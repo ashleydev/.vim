@@ -1,13 +1,8 @@
 " Syntax file for coloring the output of rfsd logs, rfsd tests, and the like
 
 if exists("b:current_syntax")
-"   finish
+  finish
 endif
-
-hi clear
-syntax clear
-syntax reset
-
 
 "===============================================================================
 " Error:
@@ -15,6 +10,9 @@ syntax reset
 
 syntax match ErrorWords                "ERRORS\|ERROR\|errors\|error\|Errors\|Error"
 highlight    ErrorWords                   cterm=bold ctermfg=Red
+
+syntax match DumpingCore                ".*dumping core"
+highlight    DumpingCore                   cterm=bold ctermfg=Red
 
 
 "===============================================================================
@@ -26,11 +24,9 @@ highlight    ErrorWords                   cterm=bold ctermfg=Red
 " [08:14:00.479646 8484 (8488) info  /rfsd] shutdown signal received
 " [08:14:00.771850 8484 (8487) info  /ctl] ctl thread exiting
 
-syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\["   skip="[^\]]"   end="]"
-               
 syntax match   LogMsgIntroBrackets      contained   "[\[\]]"
 highlight      LogMsgIntroBrackets        ctermfg=Yellow
-               
+
 syntax region  LogMsgIntroTime   contains=LogMsgTimeDigits contained display start="\d\d:" skip="[0-9.:]" end=" "
 syntax match   LogMsgTimeDigits         contained   "\d\+"
 highlight      LogMsgTimeDigits          ctermfg=200
@@ -58,6 +54,7 @@ syntax keyword LogMsgIntroLevelAlert   contained   alert
 syntax keyword LogMsgIntroLevelCrit    contained   crit[ical]
 syntax keyword LogMsgIntroLevelError   contained   err[or]
 syntax keyword LogMsgIntroLevelWarn    contained   warn[ing]
+syntax match   LogMsgIntroLevelWarn2   contained   " warn"
 syntax keyword LogMsgIntroLevelNote    contained   note notice
 syntax keyword LogMsgIntroLevelInfo    contained   info
 syntax keyword LogMsgIntroLevelDebug   contained   debug
@@ -67,14 +64,17 @@ highlight      LogMsgIntroLevelAlert     ctermfg=Yellow   ctermbg=Red       cter
 highlight      LogMsgIntroLevelCrit      ctermfg=Yellow   ctermbg=Red       cterm=bold
 highlight      LogMsgIntroLevelError     ctermfg=Red      cterm=bold
 highlight      LogMsgIntroLevelWarn      ctermfg=208      cterm=underline
+highlight      LogMsgIntroLevelWarn2     ctermfg=208      cterm=underline
 highlight      LogMsgIntroLevelNote      ctermfg=DarkYellow
 highlight      LogMsgIntroLevelDebug     ctermfg=Cyan
+
+syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\["   skip="[^\]]"   end="]"
 
 "===============================================================================
 " g++4 to see what make is doing:
 "===============================================================================
 
-syntax match  GCC                       "^/usr/bin/g++4" 
+syntax match  GCC                       "^/usr/bin/g++4"
 highlight     GCC                        cterm=underline
 
 
@@ -96,11 +96,11 @@ highlight    Testing                     ctermbg=Yellow ctermfg=Black
 " Assignment:
 "===============================================================================
 
-syntax match Assignment                contains=Assignment.\+ display "[^=! (,]\+\s*=\s*[^= %:);,]*"
 syntax match AssignmentRHS             contained "\s*[^= %:);,]\+"
+highlight    AssignmentRHS              cterm=bold  ctermfg=Magenta
 syntax match AssignmentLHS             contained "[^=! (]\+\s*="he=e-1
 highlight    AssignmentLHS              cterm=bold  ctermfg=Cyan
-highlight    AssignmentRHS              cterm=bold  ctermfg=Magenta
+syntax match Assignment                contains=Assignment.\+ display "[^=! (,]\+\s*=\s*[^= %:);,]*"
 
 
 "===============================================================================
@@ -117,8 +117,6 @@ highlight    FlameboxIgnoreCancel         ctermfg=19 cterm=bold,underline
 "===============================================================================
 " Stacktrace:
 "===============================================================================
-
-syntax region StackTrace               contains=StackTrace.\+ keepend start="^#\d\+ \+" end="$"
 
 syntax match StackTraceHex                 contained "0x[0-9a-fA-F]\+"
 highlight    StackTraceHex                    ctermfg=20
@@ -141,5 +139,8 @@ syntax match StackTraceFile                contained " at [^: ]*"hs=s+4 contains
 highlight    StackTraceFile                   ctermfg=200
 syntax match StackTraceFileNumber          contained ":\d\+$"hs=s+1
 highlight    StackTraceFileNumber             ctermfg=200 cterm=Underline
+
+syntax region StackTrace               contains=StackTrace.\+ keepend start="^#\d\+ \+" end="$"
+
 "===============================================================================
 let b:current_syntax = "rfsd"
