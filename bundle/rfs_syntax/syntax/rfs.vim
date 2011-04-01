@@ -27,7 +27,7 @@ highlight    DumpingCore                   cterm=bold ctermfg=Red
 syntax match   LogMsgIntroBrackets      contained   "[\[\]]"
 highlight      LogMsgIntroBrackets        ctermfg=Yellow
 
-syntax region  LogMsgIntroTime   contains=LogMsgTimeDigits contained display start="\d\d:" skip="[0-9.:]" end=" "
+syntax region  LogMsgIntroTime   start="\d\d:" skip="[0-9.:]" end=" " contained contains=LogMsgTimeDigits display 
 syntax match   LogMsgTimeDigits         contained   "\d\+"
 highlight      LogMsgTimeDigits          ctermfg=200
 highlight      LogMsgIntroTime           ctermfg=246
@@ -44,7 +44,7 @@ highlight      LogMsgIntroThreadPid       ctermfg=19
 syntax match   LogMsgThreadPid          contained   "\d\+"
 highlight      LogMsgThreadPid            ctermfg=52 cterm=underline
 
-syntax match   LogMsgIntroPath   contained display "/[^\]]\+"
+syntax match   LogMsgIntroPath          contained display "/[^\]]\+"
 highlight      LogMsgIntroPath            ctermfg=darkgreen
 
 " Log Levels:
@@ -107,7 +107,7 @@ syntax match Assignment                contains=Assignment.\+ display "[^=! (,]\
 " Flamebox Ignore Lines:
 "===============================================================================
 
-syntax match FlameboxIgnore            contains=FlameboxIgnoreCancel display "^flamebox-ignore.*"
+syntax match FlameboxIgnore            display "^flamebox-ignore.*"             contains=FlameboxIgnoreCancel 
 highlight    FlameboxIgnore               ctermfg=19
 
 syntax match FlameboxIgnoreCancel      contained "cancel"
@@ -122,7 +122,7 @@ syntax match StackTraceHex                 contained "0x[0-9a-fA-F]\+"
 highlight    StackTraceHex                    ctermfg=20
 syntax match StackTraceFrameNumHash        contained "^#"
 highlight    StackTraceFrameNumHash           ctermfg=20
-syntax match StackTraceFrameNum            contained "^#\d\+"hs=s+1 contains=StackTraceFrameNumHash
+syntax match StackTraceFrameNum            contained "^#\d\+"hs=s+1             contains=StackTraceFrameNumHash
 highlight    StackTraceFrameNum               cterm=Bold
 syntax match StackTraceAddress             contained "^#\d\+ \+0x[0-9a-fA-F]\+" contains=StackTraceFrameNum
 highlight    StackTraceAddress                ctermfg=DarkRed
@@ -135,12 +135,12 @@ syntax match StackTraceFunctionArgs        contained "\( \)\@<!\(()\)\?([^)]*)" 
 highlight    StackTraceFunctionArgs           ctermfg=Green
 syntax match StackTraceAt                  contained " at "
 highlight    StackTraceAt                     ctermfg=Yellow
-syntax match StackTraceFile                contained " at [^: ]*"hs=s+4 contains=StackTraceAt
+syntax match StackTraceFile                contained " at [^: ]*"hs=s+4         contains=StackTraceAt
 highlight    StackTraceFile                   ctermfg=200
 syntax match StackTraceFileNumber          contained ":\d\+$"hs=s+1
 highlight    StackTraceFileNumber             ctermfg=200 cterm=Underline
 
-syntax region StackTrace               contains=StackTrace.\+ keepend start="^#\d\+ \+" end="$"
+syntax region StackTrace               start="^#\d\+ \+" end="$"        keepend contains=StackTrace.\+ 
 
 "===============================================================================
 let b:current_syntax = "rfsd"
