@@ -44,7 +44,7 @@ highlight      LogMsgIntroThreadPid       ctermfg=19
 syntax match   LogMsgThreadPid          contained   "\d\+"
 highlight      LogMsgThreadPid            ctermfg=52 cterm=underline
 
-syntax match   LogMsgIntroPath          contained display "/[^\]]\+"
+syntax match   LogMsgIntroPath          contained display "/[^\] ]\+"
 highlight      LogMsgIntroPath            ctermfg=darkgreen
 
 " Log Levels:
@@ -145,4 +145,4 @@ highlight    StackTraceHex                    ctermfg=20
 syntax region StackTrace               start="^#\d\+ \+" end="$"        keepend contains=StackTrace.\+ 
 
 "===============================================================================
-let b:current_syntax = "rfsd"
+let b:current_syntax = "rfs"

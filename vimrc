@@ -482,6 +482,7 @@ autocmd BufRead,BufNewFile *.mkd set ft=mkd
 autocmd BufRead,BufNewFile *.markdown set ft=mkd
 autocmd BufRead,BufNewFile *.md set ft=mkd
 autocmd BufRead,BufNewFile *.json set ft=javascript
+autocmd BufRead,BufNewFile *.rfs set ft=rfs
 
 
 autocmd FileType python     call PoundComment()
