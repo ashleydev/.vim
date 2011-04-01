@@ -118,27 +118,29 @@ highlight    FlameboxIgnoreCancel         ctermfg=19 cterm=bold,underline
 " Stacktrace:
 "===============================================================================
 
-syntax match StackTraceHex                 contained "0x[0-9a-fA-F]\+"
-highlight    StackTraceHex                    ctermfg=20
 syntax match StackTraceFrameNumHash        contained "^#"
 highlight    StackTraceFrameNumHash           ctermfg=20
-syntax match StackTraceFrameNum            contained "^#\d\+"hs=s+1             contains=StackTraceFrameNumHash
+syntax match StackTraceFrameNum            contained "\(^#\)\@<=\d\+"
 highlight    StackTraceFrameNum               cterm=Bold
-syntax match StackTraceAddress             contained "^#\d\+ \+0x[0-9a-fA-F]\+" contains=StackTraceFrameNum
+syntax match StackTraceAddress             contained "\(^#\d\+ \+\)\@<=0x[0-9a-fA-F]\+"
 highlight    StackTraceAddress                ctermfg=DarkRed
-syntax match StackTraceFunction            contained " in .[^( ]\+"hs=s+4
 syntax match StackTraceIn                  contained " in "
-highlight    StackTraceIn                     ctermfg=Yellow
+highlight    StackTraceIn                     ctermfg=178
+syntax match StackTraceFunction            contained "\( in \)\@<=.[^( ]\+"     contains=StackTraceColon
 syntax match StackTraceFunctionArgsParens  contained "[()]"
 highlight    StackTraceFunctionArgsParens     cterm=Bold
 syntax match StackTraceFunctionArgs        contained "\( \)\@<!\(()\)\?([^)]*)" contains=StackTraceFunctionArgsParens
-highlight    StackTraceFunctionArgs           ctermfg=Green
+highlight    StackTraceFunctionArgs           ctermfg=DarkGreen
 syntax match StackTraceAt                  contained " at "
-highlight    StackTraceAt                     ctermfg=Yellow
-syntax match StackTraceFile                contained " at [^: ]*"hs=s+4         contains=StackTraceAt
+highlight    StackTraceAt                     ctermfg=178
+syntax match StackTraceFile                contained "\( at \)\@<=[^: ]*"
 highlight    StackTraceFile                   ctermfg=200
-syntax match StackTraceFileNumber          contained ":\d\+$"hs=s+1
+syntax match StackTraceFileNumber          contained ":\@<=\d\+$"
 highlight    StackTraceFileNumber             ctermfg=200 cterm=Underline
+syntax match StackTraceColon               contained ":"
+highlight    StackTraceColon                  ctermfg=Cyan
+syntax match StackTraceHex                 contained "\(^#\d\+ \+\)\@<!0x[0-9a-fA-F]\+"
+highlight    StackTraceHex                    ctermfg=20
 
 syntax region StackTrace               start="^#\d\+ \+" end="$"        keepend contains=StackTrace.\+ 
 
