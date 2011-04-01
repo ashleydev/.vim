@@ -39,6 +39,7 @@
 "   For those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
+
 set runtimepath+=~/.vim/vam/vim-addon-manager
 call scriptmanager#Activate([
 \    'pathogen.zip',
@@ -61,8 +62,10 @@ call scriptmanager#Activate([
 " \    'Gundo',
 
 if !exists("*scriptmanager#Activate")
-    echo "ERROR: Could not find your plugins\n" .
-    \    "\tPlease install vim-addon-manager files at ~/.vim/vam/vim-addon-manager/*\n"
+    echo "ERROR: Could not find your plugins.\n" .
+    \    "ERROR: Please install vim-addon-manager files at ~/.vim/vam/vim-addon-manager/ ie:\n\n" .
+    \    "git clone git://github.com/MarcWeber/vim-addon-manager.git ~/.vim/vam/vim-addon-manager\n"
+    exit
 endif
 
 call pathogen#runtime_append_all_bundles()
@@ -253,29 +256,16 @@ endfunction
 "-----------------------------------------------------------------------------
 
 "  press F3 to bring up menus in console-vim
-
 if ! has("gui_running")
     set wildmenu wildcharm=<C-Z>
     nmap <F3> :runtime menu.vim<cr>:emenu <C-Z>
 endif
 
-"      Font menu
-amenu F&ont.&5x7            :set guifont=5x7<cr><C-L>
-amenu F&ont.&6x10           :set guifont=6x10<cr><C-L>
-amenu F&ont.6x13            :set guifont=6x13<cr><C-L>
-amenu F&ont.&7x13           :set guifont=7x13<cr><C-L>
-amenu F&ont.&8x13           :set guifont=8x13<cr><C-L>
-amenu F&ont.&9x15           :set guifont=9x15<cr><C-L>
-amenu F&ont.&10x20          :set guifont=10x20<cr><C-L>
-amenu F&ont.&12x24          :set guifont=12x24<cr><C-L>
-amenu F&ont.&heabfix        :set guifont=-*-haebfix-medium-r-normal-*-15-*-*-*-*-*-*-*<cr><C-L>
-amenu F&ont.&lucida         :set guifont=-*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-*-*<cr><C-L>
-
 "      Misc menu
-amenu Misc.Remove\ &trailing\ white-space<Tab>F10   :%s/\s\+$//<cr>``
-amenu Misc.&Save\ Viminfo                           :set viminfo='7,n./viminfo<cr>:wv<cr>:set viminfo=<cr>
 amenu Misc.Toggle\ case\ for\ searching<Tab>F4      :set ignorecase!<cr>:set ignorecase?<cr>
+amenu Misc.Remove\ &trailing\ white-space<Tab>F10   :%s/\s\+$//<cr>``
 amenu Misc.Toggle\ highlight\ search\ results       :set hlsearch!<cr>:set hlsearch?<cr>
+amenu Misc.&Save\ Viminfo                           :set viminfo='7,n./viminfo<cr>:wv<cr>:set viminfo=<cr>
 amenu Misc.Spell\ Check\ Menu                       :runtime my/spellcheck.vim<cr>
 amenu Misc.All\ Chars\ Menu                         :runtime my/char_menu.vim<cr>
 
@@ -302,10 +292,6 @@ iab allways always
 cmap Wq wq
 cmap WQ wq
 
-" if version < 600
-"     set shortmess=astI
-" endif
-
 "-----------------------------------------------------------------------------
 " My Shortcuts
 "-----------------------------------------------------------------------------
@@ -331,21 +317,23 @@ endfunction
 
 " For when you want to make sure you're not over 80 columns of text.
 " toggle colored right border at textwidth +1
-let s:color_column_old='+1'
+nnoremap <Leader>s8 :call <SID>ToggleColorColumn()<cr>
+autocmd BufRead * let b:color_column_old='+1'
 function! s:ToggleColorColumn()
-    echo ':set colorcolumn='s:color_column_old
-    if s:color_column_old == ''
-        let s:color_column_old = &colorcolumn
+    echo ':set colorcolumn='b:color_column_old
+    if b:color_column_old == ''
+        let b:color_column_old = &colorcolumn
         let &colorcolumn=''
     else
-        let &colorcolumn=s:color_column_old
-        let s:color_column_old=''
+        let &colorcolumn=b:color_column_old
+        let b:color_column_old=''
     endif
 endfunction
-highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
-nnoremap <Leader>s8 :call <SID>ToggleColorColumn()<cr>
+" highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+highlight ColorColumn ctermbg=52 guibg=DarkRed
 
 " Toggle vimdiff mode
+nmap <Leader>sd :call <SID>ToggleDiff()<cr>
 function! s:ToggleDiff()
     if &diff
         echo ':diffoff'
@@ -355,8 +343,8 @@ function! s:ToggleDiff()
         :diffthis
     endif
 endfunction
-nmap <Leader>sd :call <SID>ToggleDiff()<cr>
 
+nmap <Leader>sw :call <SID>ToggleHiTrailingWS()<cr>
 let s:highlightTrailingWhiteSpace=1
 function! s:ToggleHiTrailingWS()
     if s:highlightTrailingWhiteSpace == 1
@@ -369,7 +357,7 @@ function! s:ToggleHiTrailingWS()
         echo ':highlight EOLWS ctermbg=red guibg=red'
     endif
 endfunction
-nmap <Leader>sw :call <SID>ToggleHiTrailingWS()<cr>
+
 " strip trailing whitespace
 nmap <Leader>sW :%s/\s\+$//<cr>:let @/=''<cr>
 
