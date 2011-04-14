@@ -47,18 +47,18 @@ call scriptmanager#Activate([
 \    'Indent_Guides',
 \    'Conque_Shell',
 \    'cscope_macros',
-\    'taglist',
 \    'Align294',
+\    'taglist',
 \    'vcscommand',
 \    'git.zip',
 \    'fugitive',
 \    'a.vim_-_Alternate_Files_quickly_.c',
 \    'surround',
 \    'CCTree_-_C_Call-Tree_Explorer',
-\    'Command-T',
-\    'The_NERD_Commenter',
 \    'YankRing',
 \ ])
+" \    'Command-T',
+" \    'The_NERD_Commenter',
 " \    'Gundo',
 
 if !exists("*scriptmanager#Activate")
@@ -661,13 +661,13 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_WinWidth = 35
 nmap T :TlistToggle<cr>
 
-"-----------------------------------------------------------------------------
-" PLUGIN: The_NERD_Commenter
-"-----------------------------------------------------------------------------
-
-" toggle comments
-nnoremap <silent> <Leader><space> :call NERDComment(0, "toggle")<cr>
-vnoremap <silent> <Leader><space> <ESC>:call NERDComment(1, "toggle")<cr>
+" "-----------------------------------------------------------------------------
+" " PLUGIN: The_NERD_Commenter
+" "-----------------------------------------------------------------------------
+" 
+" " toggle comments
+" nnoremap <silent> <Leader><space> :call NERDComment(0, "toggle")<cr>
+" vnoremap <silent> <Leader><space> <ESC>:call NERDComment(1, "toggle")<cr>
 
 "-----------------------------------------------------------------------------
 " PLUGIN: Gundo
@@ -694,3 +694,27 @@ endfunction
 
 nmap <Leader>ig :IndentGuidesToggle<cr>
 
+"-----------------------------------------------------------------------------
+" PLUGIN: CCTree_-_C_Call-Tree_Explorer
+"-----------------------------------------------------------------------------
+
+" make sure you have CCTree version >= 1.33
+let g:CCTreeKeyTraceForwardTree = '<Leader>t.'
+let g:CCTreeKeyTraceReverseTree = '<Leader>t,'
+let g:CCTreeKeyDepthPlus = '<Leader>t='
+let g:CCTreeKeyDepthMinus = '<Leader>t-'
+function! CCTreeQuickDBLoad()
+    if filereadable('CCTree.XRefDB')
+        CCTreeLoadXRefDBFromDisk CCTree.XRefDB
+    else
+        if !filereadable('cscope.out')
+            " `csc` is my local ~/bin/csc script for generating my cscope.out db:
+            !csc
+        endif
+        CCTreeLoadDB cscope.out
+        CCTreeSaveXRefDB CCTree.XRefDB
+    endif
+endfunction
+nmap <Leader>tl :call CCTreeQuickDBLoad()<cr>
+
+" autocmd VimEnter * if filereadable('cscope.out') | call CCTreeQuickDBLoad() | endif
