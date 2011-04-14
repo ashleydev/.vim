@@ -343,6 +343,7 @@ function! s:ToggleDiff()
         :diffthis
     endif
 endfunction
+nmap <Leader>du :diffupdate<cr><c-l>
 
 nmap <Leader>sw :call <SID>ToggleHiTrailingWS()<cr>
 let s:highlightTrailingWhiteSpace=1
@@ -462,6 +463,7 @@ filetype plugin indent on
 " Git
 "
 autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG    set ft=gitcommit
+autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG    setlocal spell
 autocmd BufNewFile,BufRead *.git/config,.gitconfig set ft=gitconfig
 autocmd BufNewFile,BufRead git-rebase-todo         set ft=gitrebase
 autocmd BufNewFile,BufRead .msg.[0-9]*
@@ -483,6 +485,8 @@ autocmd BufRead,BufNewFile *.markdown set ft=mkd
 autocmd BufRead,BufNewFile *.md set ft=mkd
 autocmd BufRead,BufNewFile *.json set ft=javascript
 autocmd BufRead,BufNewFile *.rfs set ft=rfs
+autocmd BufRead,BufNewFile *.log set ft=rfs
+autocmd BufRead,BufNewFile *.out set ft=rfs
 
 
 autocmd FileType python     call PoundComment()

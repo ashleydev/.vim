@@ -1,7 +1,8 @@
-" Syntax file for coloring the output of rfsd logs, rfsd tests, and the like
+" Syntax file for coloring the output of rfsd logs, rfsd tests, and various
+" outupt ww development
 
 if exists("b:current_syntax")
-  finish
+"   finish
 endif
 
 "===============================================================================
@@ -71,12 +72,17 @@ highlight      LogMsgIntroLevelDebug     ctermfg=Cyan
 syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\["   skip="[^\]]"   end="]"
 
 "===============================================================================
-" g++4 to see what make is doing:
+" Compilation:
 "===============================================================================
 
-syntax match  GCC                       "^/usr/bin/g++4"
-highlight     GCC                        cterm=underline
+syntax match  Gcc                       "^/usr/bin/g++4"
+highlight     Gcc                        cterm=underline
 
+syntax match  GccErrorLocation          "^/[^: ]\+:\d\+: \@="
+highlight     GccErrorLocation           cterm=underline
+
+syntax match  GccErrorDesc              "\(^/[^: ]\+:\d\+:\)\@<= \w.*"
+highlight     GccErrorDesc               ctermfg=Yellow
 
 "===============================================================================
 " Unit Tests Results:
@@ -85,12 +91,8 @@ highlight     GCC                        cterm=underline
 syntax match TestCompletedSuccess       "^Test \S\+ completed successfully!.*"
 highlight    TestCompletedSuccess        ctermbg=Green ctermfg=Black
 
-syntax match TestCompletedError         "^ERROR: test .* failed"
+syntax match TestCompletedError         "^ERROR: test .* exited with status.*"
 highlight    TestCompletedError          ctermbg=Red
-
-syntax match Testing                    "Running tests .*"
-highlight    Testing                     ctermbg=Yellow ctermfg=Black
-
 
 "===============================================================================
 " Assignment:
@@ -98,9 +100,9 @@ highlight    Testing                     ctermbg=Yellow ctermfg=Black
 
 syntax match AssignmentRHS             contained "\s*[^= %:);,]\+"
 highlight    AssignmentRHS              cterm=bold  ctermfg=Magenta
-syntax match AssignmentLHS             contained "[^=! (]\+\s*="he=e-1
+syntax match AssignmentLHS             contained "[^=! ),]\+\s*="he=e-1
 highlight    AssignmentLHS              cterm=bold  ctermfg=Cyan
-syntax match Assignment                contains=Assignment.\+ display "[^=! (,]\+\s*=\s*[^= %:);,]*"
+syntax match Assignment                contains=Assignment.\+ display "[^=! ,]\+\s*=\s*[^= %:);,]*"
 
 
 "===============================================================================
