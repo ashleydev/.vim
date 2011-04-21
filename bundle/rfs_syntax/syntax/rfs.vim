@@ -50,13 +50,13 @@ highlight      LogMsgIntroPath            ctermfg=darkgreen
 
 " Log Levels:
 syntax case ignore
-syntax keyword LogMsgIntroLevelEmerg   contained   emerg[ency]
-syntax keyword LogMsgIntroLevelAlert   contained   alert
-syntax keyword LogMsgIntroLevelCrit    contained   crit[ical]
-syntax keyword LogMsgIntroLevelError   contained   err[or]
-syntax keyword LogMsgIntroLevelWarn    contained   warn[ing]
-syntax match   LogMsgIntroLevelWarn2   contained   " warn"
-syntax keyword LogMsgIntroLevelNote    contained   note notice
+syntax keyword LogMsgIntroLevelEmerg               emerg[ency]
+syntax keyword LogMsgIntroLevelAlert               alert
+syntax keyword LogMsgIntroLevelCrit                crit[ical]
+syntax keyword LogMsgIntroLevelError               err[or]
+syntax keyword LogMsgIntroLevelWarn                warn[ing]
+syntax match   LogMsgIntroLevelWarn2               " warn"
+syntax keyword LogMsgIntroLevelNote                note notice
 syntax keyword LogMsgIntroLevelInfo    contained   info
 syntax keyword LogMsgIntroLevelDebug   contained   debug
 syntax case match
@@ -78,11 +78,11 @@ syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\["   s
 syntax match  Gcc                       "^/usr/bin/g++4"
 highlight     Gcc                        cterm=underline
 
-syntax match  GccErrorLocation          "^/[^: ]\+:\d\+: \@="
+syntax match  GccErrorLocation          "^/[^: ]\+:"
 highlight     GccErrorLocation           cterm=underline
 
-syntax match  GccErrorDesc              "\(^/[^: ]\+:\d\+:\)\@<= \w.*"
-highlight     GccErrorDesc               ctermfg=Yellow
+" syntax match  GccErrorDesc              "\(^/[^: ]\+:\d\+:\)\@<= \w.*"
+" highlight     GccErrorDesc               ctermfg=Yellow
 
 "===============================================================================
 " Unit Tests Results:
