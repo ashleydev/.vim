@@ -632,6 +632,9 @@ function! MyConqueKeyMappings(term)
     " these are broke for now Conque needs to be fixed for them to work:
     inoremap <silent> <buffer> <C-j> <Esc><C-w>j<C-w>_
     inoremap <silent> <buffer> <C-k> <Esc><C-w>k<C-w>_
+    iunmap jj
+    iunmap jJ
+    call s:ToggleHiTrailingWS()
 endfunction
 call conque_term#register_function('after_keymap', 'MyConqueKeyMappings')
 
