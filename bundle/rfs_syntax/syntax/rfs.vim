@@ -6,10 +6,30 @@ if exists("b:current_syntax")
 endif
 
 "===============================================================================
+" Unit Tests Results:
+"===============================================================================
+
+syntax match TestCompletedInfo          "^INFO:.*"
+highlight    TestCompletedInfo           cterm=underline
+
+syntax match TestSuccess                "^SUCCESS:"
+highlight    TestSuccess                 ctermfg=Green
+
+syntax match TestERROR                  "^ERROR"
+highlight    TestERROR                   cterm=bold ctermfg=Red
+
+syntax match TestCompletedSuccess       "^Test \S\+ completed successfully!.*"
+highlight    TestCompletedSuccess        ctermbg=Green ctermfg=Black
+
+syntax match TestCompletedError         "^ERROR: test .* exited with status.*"
+highlight    TestCompletedError          ctermbg=Red
+
+
+"===============================================================================
 " Error:
 "===============================================================================
 
-syntax match ErrorWords                "ERRORS\|ERROR\|errors\|error\|Errors\|Error"
+syntax match ErrorWords                "^\@<!\(ERRORS\|ERROR\|errors\|error\|Errors\|Error\)"
 highlight    ErrorWords                   cterm=bold ctermfg=Red
 
 syntax match DumpingCore                ".*dumping core"
@@ -25,6 +45,23 @@ highlight    DumpingCore                   cterm=bold ctermfg=Red
 " [08:14:00.479646 8484 (8488) info  /rfsd] shutdown signal received
 " [08:14:00.771850 8484 (8487) info  /ctl] ctl thread exiting
 
+" Assignment:
+syntax match AssignmentRHS             contained "\s*[^= %:);,]\+"
+highlight    AssignmentRHS                 cterm=bold  ctermfg=Magenta
+syntax match AssignmentLHS             contained "[^=! ),]\+\s*="he=e-1
+highlight    AssignmentLHS                 cterm=bold  ctermfg=Cyan
+syntax match Assignment                contains=Assignment.\+ display "\(http\S\+\)\@<![^=! ,]\+\s*=\s*[^= %:);,]*"
+syntax match AssignmentPairLHS         " [- a-zA-Z_][- 0-9a-zA-Z_]\+: "
+highlight    AssignmentPairLHS             ctermfg=Magenta
+
+" Boundary Or Header:
+
+syntax match LogHeader                 ".*:$"
+highlight    LogHeader                     cterm=underline
+syntax match LogDivider                ".*[=<>*_-]\{4,\}.*"
+highlight    LogDivider                    cterm=bold
+
+" Log Message Intro:
 syntax match   LogMsgIntroBrackets      contained   "[\[\]]"
 highlight      LogMsgIntroBrackets        ctermfg=Yellow
 
@@ -53,7 +90,7 @@ syntax case ignore
 syntax keyword LogMsgIntroLevelEmerg               emerg[ency]
 syntax keyword LogMsgIntroLevelAlert               alert
 syntax keyword LogMsgIntroLevelCrit                crit[ical]
-syntax keyword LogMsgIntroLevelError               err[or]
+syntax keyword LogMsgIntroLevelError   contained   err[or]
 syntax keyword LogMsgIntroLevelWarn                warn[ing]
 syntax match   LogMsgIntroLevelWarn2               " warn"
 syntax keyword LogMsgIntroLevelNote                note notice
@@ -83,26 +120,6 @@ highlight     GccErrorLocation           cterm=underline
 
 " syntax match  GccErrorDesc              "\(^/[^: ]\+:\d\+:\)\@<= \w.*"
 " highlight     GccErrorDesc               ctermfg=Yellow
-
-"===============================================================================
-" Unit Tests Results:
-"===============================================================================
-
-syntax match TestCompletedSuccess       "^Test \S\+ completed successfully!.*"
-highlight    TestCompletedSuccess        ctermbg=Green ctermfg=Black
-
-syntax match TestCompletedError         "^ERROR: test .* exited with status.*"
-highlight    TestCompletedError          ctermbg=Red
-
-"===============================================================================
-" Assignment:
-"===============================================================================
-
-syntax match AssignmentRHS             contained "\s*[^= %:);,]\+"
-highlight    AssignmentRHS              cterm=bold  ctermfg=Magenta
-syntax match AssignmentLHS             contained "[^=! ),]\+\s*="he=e-1
-highlight    AssignmentLHS              cterm=bold  ctermfg=Cyan
-syntax match Assignment                contains=Assignment.\+ display "[^=! ,]\+\s*=\s*[^= %:);,]*"
 
 
 "===============================================================================
