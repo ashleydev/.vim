@@ -682,6 +682,7 @@ nnoremap <Leader>u :GundoToggle<cr>
 " PLUGIN: YankRing
 "-----------------------------------------------------------------------------
 
+let g:yankring_history_dir = '~/.vim/tmp'
 let g:yankring_replace_n_pkey = '<C-p>'
 let g:yankring_replace_n_nkey = '<C-n>'
 nmap <Leader>p :YRShow<cr>
