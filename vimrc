@@ -215,10 +215,14 @@ inoremap <silent> <s-tab> <c-x><c-o><c-p>
 " Y to yank from the cursor to the end of the line.
 map Y y$
 
-inoremap <MiddleMouse> <C-O>:set paste<cr><MiddleMouse><C-O>:set nopaste<cr>
+" paste while in insert mode (cmd-v on mac):
+imap <d-v> <c-o>:set paste<cr><c-r>*<c-o>:set nopaste<cr>
+nmap <d-v> :set paste<cr>i<c-r>*<esc>:set nopaste<cr>
 
 " paste in visual mode works:
 vmap p d"0P
+
+inoremap <MiddleMouse> <c-o>:set paste<cr><MiddleMouse><c-o>:set nopaste<cr>
 
 "-----------------------------------------------------------------------------
 " Persistent undo support:
@@ -369,8 +373,8 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 nmap <Leader>sn :set number!<bar>set number?<cr>
 nmap <Leader>sz :set foldenable!<cr>
 
-" toggle paste mode, so you can cmd-v from your desktop paste-buffer and not
-" screw up all the formatting:
+" toggle paste mode, (though this shouldn't be needed (on macs) because of the
+" 'inoremap <d-v>' above).
 nmap <Leader>sp :set paste!<bar>set paste?<cr>
 
 " toggle wrap:
