@@ -215,9 +215,9 @@ inoremap <silent> <s-tab> <c-x><c-o><c-p>
 " Y to yank from the cursor to the end of the line.
 map Y y$
 
-" paste while in insert mode (cmd-v on mac):
+" paste while in insert mode (cmd-v on mac).  This isn't so easy to make hapen
+" in nmap mode (someday).
 imap <d-v> <c-o>:set paste<cr><c-r>*<c-o>:set nopaste<cr>
-nmap <d-v> :set paste<cr>i<c-r>*<esc>:set nopaste<cr>
 
 " paste in visual mode works:
 vmap p d"0P
