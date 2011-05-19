@@ -371,6 +371,7 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
 nmap <Leader>sn :set number!<bar>set number?<cr>
+nmap <c-n> :set number!<bar>set number?<cr>
 nmap <Leader>sz :set foldenable!<cr>
 
 " toggle paste mode, (though this shouldn't be needed (on macs) because of the
@@ -687,8 +688,8 @@ nnoremap <Leader>u :GundoToggle<cr>
 "-----------------------------------------------------------------------------
 
 let g:yankring_history_dir = '~/.vim/tmp'
-let g:yankring_replace_n_pkey = '<C-p>'
-let g:yankring_replace_n_nkey = '<C-n>'
+let g:yankring_replace_n_pkey = '<c-p>'
+let g:yankring_replace_n_nkey = '<c-m>'
 nmap <Leader>p :YRShow<cr>
 
 " makes `map Y y$` actually work
