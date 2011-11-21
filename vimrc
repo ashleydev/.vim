@@ -47,7 +47,6 @@ call scriptmanager#Activate([
 \    'Indent_Guides',
 \    'Conque_Shell',
 \    'cscope_macros',
-\    'Align294',
 \    'taglist',
 \    'vcscommand',
 \    'git.zip',
@@ -57,6 +56,7 @@ call scriptmanager#Activate([
 \    'CCTree_-_C_Call-Tree_Explorer',
 \    'YankRing',
 \ ])
+" \    'Align294',
 " \    'Command-T',
 " \    'The_NERD_Commenter',
 " \    'Gundo',
@@ -135,6 +135,9 @@ set confirm                     " Ask user before aborting an action
 set history=500                 " Remember this many commands & searches
 set autowrite                   " Write often when jumping around
 set mouse=a                     " Turn mouse support on
+set ttymouse=xterm2             " Enable window-split drag-to-resize. (esp. in
+                                "  screen which defaults to 'xterm')
+set ttyfast                     " performance boost for vim's display
 set esckeys                     " Function keys that start with an <Esc> are
                                 "  recognized in Insert mode.
 set backspace=indent,eol,start  " Allows <BS> and ilk to wrap across lines
@@ -491,6 +494,7 @@ autocmd BufRead,BufNewFile *.json set ft=javascript
 autocmd BufRead,BufNewFile *.rfs set ft=rfs
 autocmd BufRead,BufNewFile *.log set ft=rfs
 autocmd BufRead,BufNewFile *.out set ft=rfs
+autocmd BufRead,BufNewFile GNUmakerules set ft=make
 
 
 autocmd FileType python     call PoundComment()
@@ -671,7 +675,7 @@ nmap T :TlistToggle<cr>
 " "-----------------------------------------------------------------------------
 " " PLUGIN: The_NERD_Commenter
 " "-----------------------------------------------------------------------------
-" 
+"
 " " toggle comments
 " nnoremap <silent> <Leader><space> :call NERDComment(0, "toggle")<cr>
 " vnoremap <silent> <Leader><space> <ESC>:call NERDComment(1, "toggle")<cr>
