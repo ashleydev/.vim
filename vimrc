@@ -47,7 +47,6 @@ call scriptmanager#Activate([
 \    'Indent_Guides',
 \    'Conque_Shell',
 \    'cscope_macros',
-\    'Align294',
 \    'taglist',
 \    'vcscommand',
 \    'git.zip',
@@ -57,6 +56,7 @@ call scriptmanager#Activate([
 \    'CCTree_-_C_Call-Tree_Explorer',
 \    'YankRing',
 \ ])
+" \    'Align294',
 " \    'Command-T',
 " \    'The_NERD_Commenter',
 " \    'Gundo',
@@ -136,6 +136,9 @@ set confirm                     " Ask user before aborting an action
 set history=500                 " Remember this many commands & searches
 set autowrite                   " Write often when jumping around
 set mouse=a                     " Turn mouse support on
+set ttymouse=xterm2             " Enable window-split drag-to-resize. (esp. in
+                                "  screen which defaults to 'xterm')
+set ttyfast                     " performance boost for vim's display
 set esckeys                     " Function keys that start with an <Esc> are
                                 "  recognized in Insert mode.
 set backspace=indent,eol,start  " Allows <BS> and ilk to wrap across lines
@@ -372,6 +375,7 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
 nmap <Leader>sn :set number!<bar>set number?<cr>
+nmap <c-n> :set number!<bar>set number?<cr>
 nmap <Leader>sz :set foldenable!<cr>
 
 " toggle paste mode, (though this shouldn't be needed (on macs) because of the
@@ -492,6 +496,7 @@ autocmd BufRead,BufNewFile *.json set ft=javascript
 autocmd BufRead,BufNewFile *.rfs set ft=rfs
 autocmd BufRead,BufNewFile *.log set ft=rfs
 autocmd BufRead,BufNewFile *.out set ft=rfs
+autocmd BufRead,BufNewFile GNUmakerules set ft=make
 
 
 autocmd FileType python     call PoundComment()
@@ -672,7 +677,7 @@ nmap T :TlistToggle<cr>
 " "-----------------------------------------------------------------------------
 " " PLUGIN: The_NERD_Commenter
 " "-----------------------------------------------------------------------------
-" 
+"
 " " toggle comments
 " nnoremap <silent> <Leader><space> :call NERDComment(0, "toggle")<cr>
 " vnoremap <silent> <Leader><space> <ESC>:call NERDComment(1, "toggle")<cr>
@@ -688,8 +693,8 @@ nnoremap <Leader>u :GundoToggle<cr>
 "-----------------------------------------------------------------------------
 
 let g:yankring_history_dir = '~/.vim/tmp'
-let g:yankring_replace_n_pkey = '<C-p>'
-let g:yankring_replace_n_nkey = '<C-n>'
+let g:yankring_replace_n_pkey = '<c-p>'
+let g:yankring_replace_n_nkey = '<c-m>'
 nmap <Leader>p :YRShow<cr>
 
 " makes `map Y y$` actually work
