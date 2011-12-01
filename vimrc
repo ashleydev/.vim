@@ -114,6 +114,7 @@ set foldmethod=manual
 let loaded_matchparen = 1       " Don't load the match paren plugin, I don't like it.
 set wrap
 set number                      " Show line numbers (toggled with ,sn)
+set nocursorline                " don't highlight the current line
 
 " Make <c-g> more verbose
 nnoremap <c-g> 2<c-g>
