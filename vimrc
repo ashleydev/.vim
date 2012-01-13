@@ -2,25 +2,19 @@
 " PLUGIN: vim-addon-manager (vam)
 "-----------------------------------------------------------------------------
 "
-"   I'm using vim-addon-manager.
-"
-" PREREQUISITES:
-"
-"   Bootstrap it by installing all the files of vim-addon-manager at
-"   ~/.vim/vam/vim-addon-manager/*
-"
-"   It should already be done for you if you're getting this via git.
-"
 " INSTALLING PLUGINS:
 "
-"   Every time vim is started, it will look in the 'scriptmanager#Activate' list
-"   below and prompt you to install any plugins you don't already have installed.
-"   (the prompt formatting is yucky, I don't know why)...
+"   Every time vim is started, it will look in the 'vam#ActivateAddons' list
+"   below and install any plugins you don't already have installed the next time
+"   you launch vim.  Plugins get installed into ~/.vim/vim-addons/.  There are
+"   thousands of available plugins.
 "
-"   Adding new plugins:
-"   I just look in
-"   ~/.vim/vam/vim-addon-manager-known-repositories/plugin/vim-addon-manager-known-repositories.vim
-"   for the name I want and add it to the list below.
+"   Finding new plugins (<c-d> to autocomplete addon names):
+"
+"       :ActiveAddons <c-d>
+"
+"   Find the name you want and add it to the vam#ActivateAddons below to use it
+"   perminantly.
 "
 " NOTE:
 "
@@ -39,37 +33,46 @@
 "   For those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
+fun SetupVAM()
+    " YES, you can customize this vam_install_path path and everything still works!
+    let vam_install_path = expand('$HOME') . '/.vim/vim-addons'
+    exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
-set runtimepath+=~/.vim/vam/vim-addon-manager
-call scriptmanager#Activate([
-\    'pathogen.zip',
-\    'snipMate',
-\    'Indent_Guides',
-\    'Conque_Shell',
-\    'cscope_macros',
-\    'taglist',
-\    'vcscommand',
-\    'git.zip',
-\    'fugitive',
-\    'a.vim_-_Alternate_Files_quickly_.c',
-\    'surround',
-\    'CCTree_-_C_Call-Tree_Explorer',
-\    'YankRing',
-\ ])
-" \    'Align294',
-" \    'Command-T',
-" \    'The_NERD_Commenter',
-" \    'Gundo',
+    if !filereadable(vam_install_path.'/vim-addon-manager/.git/config') && 1 == confirm("git clone VAM into ".vam_install_path."?","&Y\n&N")
+        exec '!p='.shellescape(vam_install_path).'; mkdir -p "$p" && cd "$p" && git clone --depth 1 git://github.com/MarcWeber/vim-addon-manager.git'
+        " VAM run helptags automatically if you install or update plugins
+        exec 'helptags '.fnameescape(vam_install_path.'/vim-addon-manager/doc')
+    endif
 
-if !exists("*scriptmanager#Activate")
-    echo "ERROR: Could not find your plugins.\n" .
-    \    "ERROR: Please install vim-addon-manager files at ~/.vim/vam/vim-addon-manager/ ie:\n\n" .
-    \    "git clone git://github.com/MarcWeber/vim-addon-manager.git ~/.vim/vam/vim-addon-manager\n"
-    exit
-endif
+    " git shoud be in your path.
+    call vam#ActivateAddons([
+\           'pathogen',
+\           'snipmate',
+\           'Indent_Guides',
+\           'Conque_Shell',
+\           'cscope_macros',
+\           'Tagbar',
+\           'vcscommand',
+\           'git.zip',
+\           'fugitive',
+\           'a',
+\           'surround',
+\           'CCTree',
+\           'YankRing',
+\           'Align%294',
+\           'Command-T',
+\           'The_NERD_Commenter',
+\           ],
+\       {'auto_install' : 1})
+" \           'Gundo',
+" \           'powerline',
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+
+    " Load the modules in ~/.vim/bundle/
+    call pathogen#infect()
+endfun
+call SetupVAM()
+
 
 "-----------------------------------------------------------------------------
 " appearance
@@ -322,6 +325,8 @@ function! CycleTerminalPaletteSize()
     redraw
     echo &t_Co
 endfunction
+
+nmap <Leader>C :source ~/.vim/bundle/
 
 " For when you want to make sure you're not over 80 columns of text.
 " toggle colored right border at textwidth +1
@@ -664,15 +669,14 @@ endfunction
 call conque_term#register_function('buffer_leave', 'MyConqueBufferLeave')
 
 "-----------------------------------------------------------------------------
-" PLUGIN: taglist
+" PLUGIN: Tagbar
 "-----------------------------------------------------------------------------
 
-set updatetime=400              " This makes Tlist update which function you are
-                                "  in much faster.
-let Tlist_Show_One_File = 1
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_WinWidth = 35
-nmap T :TlistToggle<cr>
+nmap T :TagbarToggle<cr>
+let g:tagbar_width = 30
+let g:tagbar_left = 1
+let g:tagbar_sort = 0
+let g:tagbar_iconchars = ['+', '-']
 
 " "-----------------------------------------------------------------------------
 " " PLUGIN: The_NERD_Commenter
@@ -732,3 +736,10 @@ endfunction
 nmap <Leader>tl :call CCTreeQuickDBLoad()<cr>
 
 " autocmd VimEnter * if filereadable('cscope.out') | call CCTreeQuickDBLoad() | endif
+
+"-----------------------------------------------------------------------------
+" PLUGIN: powerline
+"-----------------------------------------------------------------------------
+
+let g:Powerline_cache_file = '~/.vim/tmp/Powerline.cache'
+" let g:Powerline_symbols = 'unicode'
