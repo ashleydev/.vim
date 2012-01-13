@@ -34,7 +34,6 @@
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 "
 fun SetupVAM()
-    " YES, you can customize this vam_install_path path and everything still works!
     let vam_install_path = expand('$HOME') . '/.vim/vim-addons'
     exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
