@@ -648,6 +648,7 @@ function! MyConqueKeyMappings(term)
     inoremap <silent> <buffer> <C-k> <Esc><C-w>k<C-w>_
     iunmap jj
     iunmap jJ
+    call s:ToggleHiTrailingWS()
 endfunction
 call conque_term#register_function('after_keymap', 'MyConqueKeyMappings')
 
