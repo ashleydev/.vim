@@ -64,8 +64,8 @@ fun SetupVAM()
 \           'The_NERD_Commenter',
 \           ],
 \       {'auto_install' : 1})
-" \           'Gundo',
 " \           'powerline',
+" \           'Gundo',
 
 
     " Load the modules in ~/.vim/bundle/
@@ -325,8 +325,6 @@ function! CycleTerminalPaletteSize()
     redraw
     echo &t_Co
 endfunction
-
-nmap <Leader>C :source ~/.vim/bundle/
 
 " For when you want to make sure you're not over 80 columns of text.
 " toggle colored right border at textwidth +1
