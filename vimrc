@@ -62,6 +62,7 @@ fun SetupVAM()
 \           'Align%294',
 \           'Command-T',
 \           'The_NERD_Commenter',
+\           'LargeFile',
 \           ],
 \       {'auto_install' : 1})
 " \           'powerline',
@@ -416,7 +417,7 @@ vmap <c-l> :Align "="<cr>
 vmap <c-k> :Align ":"<cr>
 
 " use tab keys to match bracket pairs
-" my snipMate breaks this in ./vam/snipMate/after/plugin/snipMate.vim
+" my snipMate breaks this.
 " so i'm using prepending the `autocmd VimEnter * :`
 autocmd VimEnter * :nmap <tab> %
 autocmd VimEnter * :xmap <tab> %
