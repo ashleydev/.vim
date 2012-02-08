@@ -62,6 +62,7 @@ fun SetupVAM()
 \           'Command-T',
 \           'The_NERD_Commenter',
 \           'LargeFile',
+\           'matchit.zip',
 \           ],
 \       {'auto_install' : 1})
 " \           'powerline',
@@ -224,7 +225,7 @@ map Y y$
 
 " paste while in insert mode (cmd-v on mac).  This isn't so easy to make hapen
 " in nmap mode (someday).
-imap <d-v> <c-o>:set paste<cr><c-r>*<c-o>:set nopaste<cr>
+inoremap <d-v> <c-o>:set paste<cr><c-r>*<c-o>:set nopaste<cr>
 
 " paste in visual mode works:
 vmap p d"0P
@@ -378,7 +379,8 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
 nmap <Leader>sn :set number!<bar>set number?<cr>
-nmap <c-n> :set number!<bar>set number?<cr>
+nmap <Leader>m :set number!<bar>set number?<cr>
+" nmap <c-n> :set number!<bar>set number?<cr>
 nmap <Leader>sz :set foldenable!<cr>
 
 " toggle paste mode, (though this shouldn't be needed (on macs) because of the
@@ -418,8 +420,14 @@ vmap <c-k> :Align ":"<cr>
 " use tab keys to match bracket pairs
 " my snipMate breaks this.
 " so i'm using prepending the `autocmd VimEnter * :`
-autocmd VimEnter * :nmap <tab> %
-autocmd VimEnter * :xmap <tab> %
+autocmd VimEnter * :nnoremap <tab> %
+autocmd VimEnter * :xnoremap <tab> %
+
+" vim has a bug where it cannot distinguish ctrl-i from <tab>.  I want to use
+" ctrl-i and ctrl-o but also I want <tab> to match circumfixes.  I can't do
+" both, so I'm remapping ctrl-p to function as ctrl-i.
+nnoremap <c-p> <c-i>
+xnoremap <c-p> <c-i>
 
 " treat wrapped lines like real lines
 nmap <Up> gk
@@ -429,8 +437,13 @@ nmap j gj
 
 " These commands deal with changing and minimizing windows up and down.
 set winminheight=0
-map  <C-J> <C-W>j<C-W>_
-map  <C-K> <C-W>k<C-W>_
+map <c-k> <c-w>k<c-w>_
+"map <c-j> <c-w>j<c-w>_
+" One day <c-j> stopped working for me and became indistinguishable from <enter>
+" (which is also known as <c-m>) and the only way to get <c-j> back was to do
+" this <c-m> mapping.  The <c-j> mapping is just here as a 'comment' it does not
+" seem to do anything at the moment.
+map <c-m> <c-w>j<c-w>_
 
 " move to window left/right and maximize
 set winminwidth=2
@@ -696,7 +709,7 @@ nnoremap <Leader>u :GundoToggle<cr>
 
 let g:yankring_history_dir = '~/.vim/tmp'
 let g:yankring_replace_n_pkey = '<c-p>'
-let g:yankring_replace_n_nkey = '<c-m>'
+" let g:yankring_replace_n_nkey = '<c-j>'
 nmap <Leader>p :YRShow<cr>
 
 " makes `map Y y$` actually work

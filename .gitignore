@@ -14,4 +14,4 @@ spell/
 tmp/*
 
 # ignore installed modules
-vam/*
+vim-addons/*
