@@ -438,12 +438,7 @@ nmap j gj
 " These commands deal with changing and minimizing windows up and down.
 set winminheight=0
 map <c-k> <c-w>k<c-w>_
-"map <c-j> <c-w>j<c-w>_
-" One day <c-j> stopped working for me and became indistinguishable from <enter>
-" (which is also known as <c-m>) and the only way to get <c-j> back was to do
-" this <c-m> mapping.  The <c-j> mapping is just here as a 'comment' it does not
-" seem to do anything at the moment.
-map <c-m> <c-w>j<c-w>_
+map <c-j> <c-w>j<c-w>_
 
 " move to window left/right and maximize
 set winminwidth=2
@@ -708,8 +703,8 @@ nnoremap <Leader>u :GundoToggle<cr>
 "-----------------------------------------------------------------------------
 
 let g:yankring_history_dir = '~/.vim/tmp'
-let g:yankring_replace_n_pkey = '<c-p>'
-" let g:yankring_replace_n_nkey = '<c-j>'
+let g:yankring_replace_n_pkey = '<c-m>'
+let g:yankring_replace_n_nkey = '<c-n>'
 nmap <Leader>p :YRShow<cr>
 
 " makes `map Y y$` actually work
@@ -721,7 +716,7 @@ endfunction
 " PLUGIN: Indent_Guides
 "-----------------------------------------------------------------------------
 
-nmap <Leader>ig :IndentGuidesToggle<cr>
+nmap <Leader>si :IndentGuidesToggle<cr>
 
 "-----------------------------------------------------------------------------
 " PLUGIN: CCTree_-_C_Call-Tree_Explorer
