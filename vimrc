@@ -47,6 +47,7 @@ fun SetupVAM()
     call vam#ActivateAddons([
 \           'pathogen',
 \           'snipmate',
+\           'snipmate-snippets',
 \           'Indent_Guides',
 \           'Conque_Shell',
 \           'cscope_macros',
@@ -379,8 +380,8 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
 nmap <Leader>sn :set number!<bar>set number?<cr>
-nmap <Leader>m :set number!<bar>set number?<cr>
-" nmap <c-n> :set number!<bar>set number?<cr>
+nmap <Leader>n :set number!<bar>set number?<cr>
+
 nmap <Leader>sz :set foldenable!<cr>
 
 " toggle paste mode, (though this shouldn't be needed (on macs) because of the
@@ -397,10 +398,10 @@ nmap <Leader>q :q<cr>
 nmap <Leader>Q :qa<cr>
 nmap <Leader>w :w<cr>
 nmap <Leader>W :wa<cr>
-imap jj <esc>
-imap jJ <esc>
-imap Jj <esc>
-imap JJ <esc>
+inoremap jj <esc>
+inoremap jJ <esc>
+inoremap Jj <esc>
+inoremap JJ <esc>
 
 " So, hitting '*' while in visual mode does a search on everything that
 " matches the currently selected area. Of course, this does not work
@@ -417,17 +418,10 @@ noremap <c-l> :nohlsearch<cr><c-l>
 vmap <c-l> :Align "="<cr>
 vmap <c-k> :Align ":"<cr>
 
-" use tab keys to match bracket pairs
-" my snipMate breaks this.
-" so i'm using prepending the `autocmd VimEnter * :`
-autocmd VimEnter * :nnoremap <tab> %
-autocmd VimEnter * :xnoremap <tab> %
-
-" vim has a bug where it cannot distinguish ctrl-i from <tab>.  I want to use
-" ctrl-i and ctrl-o but also I want <tab> to match circumfixes.  I can't do
-" both, so I'm remapping ctrl-p to function as ctrl-i.
-nnoremap <c-p> <c-i>
-xnoremap <c-p> <c-i>
+" use ,, to match bracket pairs.  I want to use <tab> to map to % but
+" unfortunately vim can't tell the difference between <c-i> and <tab> so that
+" will destroy <c-i> usage.
+nnoremap <Leader>, %
 
 " treat wrapped lines like real lines
 nmap <Up> gk
@@ -703,7 +697,7 @@ nnoremap <Leader>u :GundoToggle<cr>
 "-----------------------------------------------------------------------------
 
 let g:yankring_history_dir = '~/.vim/tmp'
-let g:yankring_replace_n_pkey = '<c-m>'
+let g:yankring_replace_n_pkey = '<c-p>'
 let g:yankring_replace_n_nkey = '<c-n>'
 nmap <Leader>p :YRShow<cr>
 
