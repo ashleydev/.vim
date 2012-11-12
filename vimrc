@@ -14,21 +14,21 @@
 "       :ActiveAddons <c-d>
 "
 "   Find the name you want and add it to the vam#ActivateAddons below to use it
-"   perminantly.
+"   permanently.
 "
 " NOTE:
 "
 "   Re: pathogen
 "
-"   I'm using vim-addon-manager instead of pathogen for modules I havn't modifed
-"   and don't want to check into my repository. vim-addon-manager is more
-"   feature full, requires less effort when adding new plugins, makes it easier
-"   to update my external plugins and doesn't require me to add all the plugins
-"   I want to my .vim/ git repository.
+"   I'm using vim-addon-manager instead of pathogen for modules I haven't
+"   modified and don't want to check into my repository. vim-addon-manager is
+"   more feature full, requires less effort when adding new plugins, makes it
+"   easier to update my external plugins and doesn't require me to add all the
+"   plugins I want to my .vim/ git repository.
 "
 "   I am however using pathogen for my own modules.  These are things that are
 "   custom to me and haven't been released to the wider vim script world (i.e.
-"   aren't availble under vam).  These are under ~/.vim/bundle/.
+"   aren't available under vam).  These are under ~/.vim/bundle/.
 "
 "   For those interested in pathogen see:
 "   http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
@@ -50,9 +50,10 @@ fun SetupVAM()
 \           'snipmate-snippets',
 \           'Indent_Guides',
 \           'Conque_Shell',
-\           'cscope_macros',
 \           'Tagbar',
 \           'vcscommand',
+\           'clang_complete',
+\           'cscope_macros',
 \           'git.zip',
 \           'fugitive',
 \           'a',
@@ -170,7 +171,7 @@ set hlsearch
 
 set autoindent                  " new lines with indentation of previous line
 set expandtab                   " insert spaces when <tab> is pressed
-set tabstop=4                   " render <tab> visually using this many spaces
+set tabstop=8                   " render <tab> visually using this many spaces
 set shiftwidth=4                " indentation amount for < and > commands (& cindent)
 set softtabstop=4               " this many spaces
 set smartindent
@@ -418,10 +419,17 @@ noremap <c-l> :nohlsearch<cr><c-l>
 vmap <c-l> :Align "="<cr>
 vmap <c-k> :Align ":"<cr>
 
-" use ,, to match bracket pairs.  I want to use <tab> to map to % but
-" unfortunately vim can't tell the difference between <c-i> and <tab> so that
-" will destroy <c-i> usage.
-nnoremap <Leader>, %
+" use tab keys to match bracket pairs
+" my snipMate breaks this.
+" so i'm using prepending the `autocmd VimEnter * :`
+autocmd VimEnter * :nnoremap <tab> %
+autocmd VimEnter * :xnoremap <tab> %
+
+" vim has a bug where it cannot distinguish ctrl-i from <tab>.  I want to use
+" ctrl-i and ctrl-o but also I want <tab> to match circumfixes.  I can't do
+" both, so I'm remapping ctrl-t to function as ctrl-i.
+nnoremap <c-t> <c-i>
+xnoremap <c-t> <c-i>
 
 " treat wrapped lines like real lines
 nmap <Up> gk
@@ -431,8 +439,8 @@ nmap j gj
 
 " These commands deal with changing and minimizing windows up and down.
 set winminheight=0
-map <c-k> <c-w>k<c-w>_
-map <c-j> <c-w>j<c-w>_
+noremap <c-k> <c-w>k<c-w>_
+noremap <c-j> <c-w>j<c-w>_
 
 " move to window left/right and maximize
 set winminwidth=2
@@ -521,35 +529,38 @@ autocmd FileType cpp        call CPrepare()
 
 " Define functions
 function! PoundComment()
-   map - mx:s/^/# /<cr>/<C-p><C-p><cr>'x
-   map _ mx:s/^\s*# \?//<cr>/<C-p><C-p><cr>'x
-   set comments=:#
+    map - mx:s/^/# /<cr>/<C-p><C-p><cr>'x
+    map _ mx:s/^\s*# \?//<cr>/<C-p><C-p><cr>'x
+    set comments=:#
+    setlocal spell
 endfunction
 
 function! SlashComment()
-   map - mx:s/^/\/\/ /<cr>/<C-p><C-p><cr>'x
-   map _ mx:s/^\s*\/\/ \?//<cr>/<C-p><C-p><cr>'x
-   set comments=://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
+    map - mx:s/^/\/\/ /<cr>/<C-p><C-p><cr>'x
+    map _ mx:s/^\s*\/\/ \?//<cr>/<C-p><C-p><cr>'x
+    set comments=://,fb:-,n:>,n:),s1:/*,mb:*,ex:*/
+    setlocal spell
 endfunction
 
 function! VimComment()
-   map - mx:s/^/" /<cr>/<C-p><C-p><cr>'x
-   map _ mx:s/^\s*" \?//<cr>/<C-p><C-p><cr>'x
-   set comments=:\"
+    map - mx:s/^/" /<cr>/<C-p><C-p><cr>'x
+    map _ mx:s/^\s*" \?//<cr>/<C-p><C-p><cr>'x
+    set comments=:\"
+    setlocal spell
 endfunction
 
 function! HtmlPrepare()
-   source $VIM/html.vim
-   set matchpairs+=<:>
-   set comments=:<li>
+    source $VIM/html.vim
+    set matchpairs+=<:>
+    set comments=:<li>
 endfunction
 
 function! MakePrepare()
-   call PoundComment()
-   set  noexpandtab
-   set  shiftwidth=8
-   set  tabstop=8
-   set  softtabstop=8
+    call PoundComment()
+    set  noexpandtab
+    set  shiftwidth=8
+    set  tabstop=8
+    set  softtabstop=8
 endfunction
 
 function! JavascriptPrepare()
@@ -575,7 +586,6 @@ endfunction
 function! CPrepare()
     set tags=~/.tags/system.tags,./tags,../tags,../../tags,../../../tags
     call SlashComment()
-    setlocal spell
 
 "     setlocal colorcolumn=+1
 "     let s:color_column_old=''

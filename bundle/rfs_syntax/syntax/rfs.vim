@@ -106,7 +106,7 @@ highlight      LogMsgIntroLevelWarn2     ctermfg=208      cterm=underline
 highlight      LogMsgIntroLevelNote      ctermfg=DarkYellow
 highlight      LogMsgIntroLevelDebug     ctermfg=Cyan
 
-syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\["   skip="[^\]]"   end="]"
+syntax region  LogMsgIntro       contains=LogMsgIntro.\+ keepend start="^\(. \)\?\["   skip="[^\]]"   end="]"
 
 "===============================================================================
 " Compilation:
