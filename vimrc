@@ -399,6 +399,7 @@ nmap <Leader>q :q<cr>
 nmap <Leader>Q :qa<cr>
 nmap <Leader>w :w<cr>
 nmap <Leader>W :wa<cr>
+nmap <Leader>, :w<cr><C-z>
 inoremap jj <esc>
 inoremap jJ <esc>
 inoremap Jj <esc>
@@ -512,12 +513,12 @@ autocmd BufRead,BufNewFile *.out set ft=rfs
 autocmd BufRead,BufNewFile GNUmakerules set ft=make
 
 
-autocmd FileType python     call PoundComment()
-autocmd FileType zsh        call PoundComment()
+autocmd FileType python     call ScriptPrepare()
+autocmd FileType zsh        call ScriptPrepare()
 autocmd FileType perl       call PerlPrepare()
-autocmd FileType cgi        call PoundComment()
-autocmd FileType csh        call PoundComment()
-autocmd FileType sh         call PoundComment()
+autocmd FileType cgi        call ScriptPrepare()
+autocmd FileType csh        call ScriptPrepare()
+autocmd FileType sh         call ScriptPrepare()
 autocmd FileType javascript call JavascriptPrepare()
 autocmd FileType vim        call VimComment()
 autocmd FileType html       call HtmlPrepare()
@@ -555,6 +556,14 @@ function! HtmlPrepare()
     set comments=:<li>
 endfunction
 
+function! ScriptPrepare()
+    call PoundComment()
+    set  expandtab
+    set  shiftwidth=4
+    set  tabstop=8
+    set  softtabstop=4
+endfunction
+
 function! MakePrepare()
     call PoundComment()
     set  noexpandtab
@@ -577,7 +586,7 @@ function! ObjcPrepare()
 endfunction
 
 function! PerlPrepare()
-    call PoundComment()
+    call ScriptPrepare()
 
     "get perldocs by pressing 'K'
     noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
