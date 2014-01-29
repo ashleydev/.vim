@@ -381,11 +381,11 @@ nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 " toggle ('s'witch) stuff:
 set number                      " Show line numbers (toggled with ,sn)
 set nornu                       " Show relative line numbers
-let b:numbering = "number"
 nmap <Leader>sn :call <SID>ToggleNumbering()<cr>
 nmap <Leader>n :call <SID>ToggleNumbering()<cr>
+nmap <Leader>m :call <SID>ToggleNumbering()<cr>
+autocmd BufRead * let b:numbering='number'
 function! s:ToggleNumbering()
-    echo ':set colorcolumn='b:color_column_old
     if b:numbering == ''
         let b:numbering = 'number'
         set nornu
