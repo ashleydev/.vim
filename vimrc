@@ -119,7 +119,6 @@ set linebreak                   " Affects how wrapped text is displayed
 set foldmethod=manual
 let loaded_matchparen = 1       " Don't load the match paren plugin, I don't like it.
 set wrap
-set number                      " Show line numbers (toggled with ,sn)
 set nocursorline                " don't highlight the current line
 
 " Make <c-g> more verbose
@@ -380,8 +379,31 @@ nmap <Leader>sW :%s/\s\+$//<cr>:let @/=''<cr>
 nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
 " toggle ('s'witch) stuff:
-nmap <Leader>sn :set number!<bar>set number?<cr>
-nmap <Leader>n :set number!<bar>set number?<cr>
+set number                      " Show line numbers (toggled with ,sn)
+set nornu                       " Show relative line numbers
+let b:numbering = "number"
+nmap <Leader>sn :call <SID>ToggleNumbering()<cr>
+nmap <Leader>n :call <SID>ToggleNumbering()<cr>
+function! s:ToggleNumbering()
+    echo ':set colorcolumn='b:color_column_old
+    if b:numbering == ''
+        let b:numbering = 'number'
+        set nornu
+        set number
+    elseif b:numbering == 'number'
+        let b:numbering = 'number rnu'
+        set rnu
+        set number
+    elseif b:numbering == 'number rnu'
+"         let b:numbering = 'rnu'
+"         set rnu
+"         set nonumber
+"     elseif b:numbering == 'rnu'
+        let b:numbering = ''
+        set nornu
+        set nonumber
+    endif
+endfunction
 
 nmap <Leader>sz :set foldenable!<cr>
 
