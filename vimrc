@@ -176,8 +176,6 @@ set softtabstop=4               " this many spaces
 set smartindent
 set smarttab                    " make <tab> and <BS> deal with indentation properly
 
-set textwidth=80                " where to auto-wrap long lines
-
 set formatoptions=crqt          " auto-format options for formatting comments
 set formatlistpat="^\s*\(\d\+[\]:.)}\t -]|\*\|-)\s*"
 
@@ -213,8 +211,8 @@ inoremap <c-]> <c-x><c-]>
 inoremap <c-f> <c-x><c-f>
 inoremap <c-d> <c-x><c-d>
 inoremap <c-l> <c-x><c-l>
-inoremap <c-k> <c-p>
-inoremap <c-j> <c-n>
+inoremap <c-k> <esc>k
+inoremap <c-j> <esc>j
 inoremap <silent> <s-tab> <c-x><c-o><c-p>
 
 "-----------------------------------------------------------------------------
@@ -294,6 +292,8 @@ iab Ydt   <C-R>=strftime("%m/%d/%y %T")<cr>
   " Example: 971027 12:00:00
 iab Ystamp <C-R>=strftime("%a %b %d %T %Z %Y")<cr>
   " Example: Tue Dec 16 12:07:00 CET 1997
+iab Yme (<C-R>=$USER<cr>:<C-R>=strftime("%m/%d/%y")<cr>)
+  " Example: ($USER:8/16/00)
 
 iab teh the
 iab tehy they
@@ -311,6 +311,38 @@ cmap WQ wq
 
 let mapleader=","
 
+"
+" toggle ('s'witch) stuff:
+"
+
+nmap <Leader>sn :call <SID>ToggleNumbering()<cr>
+nmap <Leader>n :call <SID>ToggleNumbering()<cr>
+nmap <Leader>m :call <SID>ToggleNumbering()<cr>
+set number                      " Show line numbers (toggled with ,sn)
+set rnu                         " Show relative line numbers
+autocmd BufRead * let b:numbering='number rnu'
+function! s:ToggleNumbering()
+    if b:numbering == ''
+        let b:numbering = 'number'
+        set nornu
+        set number
+    elseif b:numbering == 'number'
+        let b:numbering = 'number rnu'
+        set rnu
+        set number
+    elseif b:numbering == 'number rnu'
+"         let b:numbering = 'rnu'
+"         set rnu
+"         set nonumber
+"     elseif b:numbering == 'rnu'
+        let b:numbering = ''
+        set nornu
+        set nonumber
+    endif
+endfunction
+set number                      " Show line numbers (toggled with ,sn)
+set rnu                         " Show relative line numbers
+
 nmap <Leader>ss :call CycleTerminalPaletteSize()<cr>
 function! CycleTerminalPaletteSize()
     " choose new palette size
@@ -326,6 +358,25 @@ function! CycleTerminalPaletteSize()
     " show new palette size
     redraw
     echo &t_Co
+endfunction
+
+nmap <Leader>s<space> :call <SID>ToggleTextWidth()<cr>
+set textwidth=80                " where to auto-wrap long lines
+" Shift the textwidth between 80, 290, 2000
+" use this along with: <Leader>s8
+autocmd BufRead * let b:textWidth=80
+function! s:ToggleTextWidth()
+    if b:textWidth == 80
+        let b:textWidth=290
+        set textwidth=290
+    elseif b:textWidth == 290
+        let b:textWidth=2000
+        set textwidth=2000
+    else
+        let b:textWidth=80
+        set textwidth=80
+    endif
+    echo ':set textwidth='b:textWidth
 endfunction
 
 " For when you want to make sure you're not over 80 columns of text.
@@ -378,13 +429,12 @@ nmap <Leader>sW :%s/\s\+$//<cr>:let @/=''<cr>
 " spell check
 nmap <Leader>sc :setlocal spell!<bar>setlocal spell?<cr>
 
-" toggle ('s'witch) stuff:
 set number                      " Show line numbers (toggled with ,sn)
-set nornu                       " Show relative line numbers
+set rnu                         " Show relative line numbers
 nmap <Leader>sn :call <SID>ToggleNumbering()<cr>
 nmap <Leader>n :call <SID>ToggleNumbering()<cr>
 nmap <Leader>m :call <SID>ToggleNumbering()<cr>
-autocmd BufRead * let b:numbering='number'
+autocmd BufRead * let b:numbering='number rnu'
 function! s:ToggleNumbering()
     if b:numbering == ''
         let b:numbering = 'number'
