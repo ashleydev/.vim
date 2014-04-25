@@ -442,8 +442,8 @@ function! s:ToggleNumbering()
         set number
     elseif b:numbering == 'number'
         let b:numbering = 'number rnu'
-        set rnu
         set number
+        set rnu
     elseif b:numbering == 'number rnu'
 "         let b:numbering = 'rnu'
 "         set rnu
